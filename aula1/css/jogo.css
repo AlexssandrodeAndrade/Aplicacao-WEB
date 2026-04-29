@@ -1,0 +1,24 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+s
+body {
+    background: #1e1e2f;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    margin: 20px 0;
+}
+
+#myCanvas {
+    display: block;
+    margin: 20px auto;
+    border: 3px solid #00ffcc;
+    background: #000;
+}

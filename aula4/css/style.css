@@ -1,0 +1,27 @@
+/* style.css */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #68a6cf, #7dcf5c);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+main{
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+h1{
+  font-size: 35px;
+}

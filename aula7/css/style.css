@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+    body{
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+        background: #f4f4f4;
+    }
+
+    main{
+        background: white;
+        width: 300px;
+        margin: auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    input{
+        width: 90%;
+        padding: 10px;
+        margin: 5px 0;
+    }
+
+    button{
+        padding: 10px 20px;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+#numeros{
+    margin: 15px;
+    color: greenyellow;
+}
+
+    #resultado{
+        margin-top: 20px;
+        text-align: left;
+    }

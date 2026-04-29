@@ -1,0 +1,77 @@
+    
+/* Reset básico */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #3498db, #2ecc71);
+    color: white;
+    text-align: center;
+}
+
+/* Container principal */
+main {
+    max-width: 400px;
+    margin: 10px auto;
+    padding: 20px;
+}
+
+/* Foto */
+#foto {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid white;
+}
+
+/* Nome */
+#nome {
+    margin: 15px 0;
+}
+
+/* Links */
+.link {
+    display: block;
+    background: white;
+    color: #333;
+    text-decoration: none;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+/* Hover */
+.link:hover {
+    background: #00c3ff;
+    color: white;
+}
+
+#redes {
+    margin-top: 25px;
+    display: flex;             
+    justify-content: center;    
+    gap: 15px;                 
+}
+
+#redes i {
+    width: 45px;
+    height: 45px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+#redes i:hover {
+    background: white;
+    color: #333;
+    transform: scale(1.2);
+}

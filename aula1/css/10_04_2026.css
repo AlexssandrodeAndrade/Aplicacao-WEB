@@ -1,0 +1,38 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corpo da página */
+body {
+    background: linear-gradient(135deg, #f4f6f9, #dfe3e8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Área principal */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container da imagem */
+main div {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* Imagem */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+}
