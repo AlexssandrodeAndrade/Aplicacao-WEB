@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    padding: 20px;
+}
+
+main {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+input, button {
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+}
+
+.add {
+    background: #28a745;
+    color: white;
+}
+
+.clear {
+    background: #dc3545;
+    color: white;
+}
+
+ol {
+    margin-top: 15px;
+}
+
+section {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px dashed #ccc;
+            min-height: 50px;
+        }
