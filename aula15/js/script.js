@@ -17,6 +17,7 @@ function adicionar() {
 }
 
 function limpar() {
-  let lista = document.getElementById('lista')
-  lista.innerHTML = '' // limpa tudo
+  // let lista = document.getElementById('lista')
+  // lista.innerHTML = '' // limpa tudo
+  document.getElementById('lista').remove()
 }
