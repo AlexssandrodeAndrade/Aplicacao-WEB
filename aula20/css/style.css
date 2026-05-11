@@ -1,0 +1,64 @@
+*{
+    margin: 0;
+    padding: 0;
+} 
+body{
+    background: linear-gradient(135deg, #68a6cf, #7dcf5c);
+}
+
+main {
+    background: whitesmoke;
+    margin: 40px auto;
+    padding: 20px;
+    max-width: 900px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* CALENDÁRIO */
+#calendario table {
+    border-collapse: collapse;
+    margin: 20px auto;
+    border: 2px solid blue;
+}
+
+#calendario th,
+#calendario td {
+    width: 60px;
+    height: 50px;
+    text-align: center;
+    border: 1px solid #000;
+}
+
+#calendario th {
+    background-color: #ddd;
+}
+
+#calendario .aniversario {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+}
+
+/* PRODUTOS */
+#produto table {
+    border-collapse: collapse;
+    margin: 20px auto;
+    width: 600px;
+    border: 2px solid blue;
+}
+
+#produto th,
+#produto td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+
+#produto th {
+    background-color: #ddd;
+}
+
+#produto .total {
+    font-weight: bold;
+}

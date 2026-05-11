@@ -1,0 +1,46 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.box {
+    border: 2px solid black;
+    padding: 40px;
+    text-align: center;
+    font-size: 20px;
+    background-color: lightgray;
+}
+
+/* CELULAR = 1 por linha */
+@media (max-width: 600px) {
+    .box {
+        width: 100%;
+    }
+}
+
+/* TABLET = 2 por linha */
+@media (min-width: 601px) and (max-width: 900px) {
+    .box {
+        width: calc(50% - 5px);
+    }
+}
+
+/* COMPUTADOR = 3 por linha */
+@media (min-width: 901px) {
+    .box {
+        width: calc(33.33% - 7px);
+    }
+}

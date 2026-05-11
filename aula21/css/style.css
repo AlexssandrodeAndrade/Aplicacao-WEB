@@ -1,0 +1,35 @@
+/* Celular */
+@media (max-width: 600px) {
+    #computador,
+    #tablet {
+        display: none;
+    }
+
+    #celular {
+        color: green;
+    }
+}
+
+/* Tablet */
+@media (min-width: 601px) and (max-width: 900px) {
+    #computador,
+    #celular {
+        display: none;
+    }
+
+    #tablet {
+        color: blue;
+    }
+}
+
+/* Computador */
+@media (min-width: 901px) {
+    #tablet,
+    #celular {
+        display: none;
+    }
+
+    #computador {
+        color: red;
+    }
+}
