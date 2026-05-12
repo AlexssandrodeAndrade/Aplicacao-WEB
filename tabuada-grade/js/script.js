@@ -15,7 +15,9 @@ function gerarTabuada() {
     tabela += '<th>' + linha + '</th>'
 
     for (let coluna = 1; coluna <= limite; coluna++) {
-      tabela += '<td>' + linha * coluna + '</td>'
+      resultado = linha * coluna
+      title = linha + ' X ' + coluna + ' = ' + resultado
+      tabela += '<td title="' + title + '">' + resultado + '</td>'
     }
 
     tabela += '</tr>'

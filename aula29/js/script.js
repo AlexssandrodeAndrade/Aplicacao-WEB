@@ -6,5 +6,6 @@ function mostrarTabuada() {
     resultado += numero + ' x ' + i + ' = ' + numero * i + '<br>'
   }
 
+  console.log(resultado)
   document.getElementById('resultado').innerHTML = resultado
 }
