@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 30px;
+}
+
+main {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 600px;
+}
+
+main:first-child {
+    height: calc(100vh - 60px);
+    overflow-y: hidden;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1e3c72;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #1e3c72;
+}
+
+.busca {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    background: #1e3c72;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #16325c;
+}
+
+#resultado {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card {
+    background: #f5f7fb;
+    padding: 15px;
+    border-left: 5px solid #1e3c72;
+    border-radius: 8px;
+}
+
+.erro {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+}
+
+.lista {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.lista div {
+    width: 50%;
+}
+
+.lista ul {
+    padding: 0;
+    margin: 0;
+}
+
+.lista li {
+    list-style: none;
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+.lista::-webkit-scrollbar {
+    width: 8px;
+}
+
+.lista::-webkit-scrollbar-track {
+    background: #eef2f8;
+    border-radius: 10px;
+}
+
+.lista::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #1e3c72, #2a5298);
+    border-radius: 10px;
+}
+
+.lista::-webkit-scrollbar-thumb:hover {
+    background: #16325c;
+}
+
+@media (max-width: 900px) {
+    body {
+        flex-direction: column;
+        align-items: center;
+        overflow-y: auto;
+        height: auto;
+    }
+
+    main:first-child {
+        height: auto;
+        overflow: visible;
+    }
+
+    .lista {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .lista div {
+        width: 100%;
+    }
+}
