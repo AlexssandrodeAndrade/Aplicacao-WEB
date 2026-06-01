@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 40</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <main>
+
+        <h1>Cadastro de Funcionários</h1>
+
+        <input type="text" id="nome" placeholder="Nome">
+        <input type="text" id="funcao" placeholder="Função">
+        <input type="number" id="salario" placeholder="Salário">
+
+        <button onclick="cadastrarFuncionario()">Cadastrar</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Função</th>
+                    <th>Salário</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaFuncionarios"></tbody>
+        </table>
+    </main>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
