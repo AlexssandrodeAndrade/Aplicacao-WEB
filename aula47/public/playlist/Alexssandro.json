@@ -1,0 +1,58 @@
+[
+  {
+    "nome": "CAMARO AMARELO",
+    "autor": "MUNHOZ & MARIANO",
+    "duracao": "3:24",
+    "colaborador": "Alexssandro",
+    "link": "https://youtu.be/M79e5ji-53w"
+  },
+  {
+    "nome": "Bad Day",
+    "autor": "Daniel Powter ",
+    "duracao": "3:48",
+    "colaborador": "Alexssandro",
+    "link": "https://youtu.be/gH476CxJxfg"
+  },
+  {
+    "nome": "In The End",
+    "autor": "Linkin Park",
+    "duracao": "3:38",
+    "colaborador": "Alexssandro",
+    "link": "https://youtu.be/eVTXPUF4Oz4"
+  },
+  {
+    "nome": "Bring Me To Life",
+    "autor": "Evanescence - ft. Paul McCoy",
+    "duracao": "4:13",
+    "colaborador": "Alexssandro",
+    "link": "https://youtu.be/3YxaaGgTQYM"
+  },
+  {
+    "nome": "Clint Eastwood",
+    "autor": "Gorillaz",
+    "duracao": "4:27",
+    "colaborador": "Alexssandro",
+    "link": "https://youtu.be/1V_xRb0x9aw"
+  },
+  {
+    "nome": "Snot",
+    "autor": "Snot",
+    "duracao": "3:22",
+    "link": "https://www.youtube.com/watch?v=LNCkKgJ7Aws",
+    "colaborador": "André"
+  },
+  {
+    "nome": "Love, Hate, Love",
+    "autor": "Alice in Chains",
+    "duracao": "6:28",
+    "link": "https://www.youtube.com/watch?v=zRrCDFUeBw8",
+    "colaborador": "André"
+  },
+  {
+    "nome": "Fuscão Preto",
+    "autor": "Trio Parada Dura",
+    "duracao": "3:05",
+    "link": "https://www.youtube.com/watch?v=2k02m8jkvP0",
+    "colaborador": "André"
+  }
+]

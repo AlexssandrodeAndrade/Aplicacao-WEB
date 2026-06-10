@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+main {
+    background: #e6f0f7;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.topo {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+input {
+    flex: 1;
+    padding: 5px;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+}
+
+.btn-add {
+    background: #4da3ff;
+    color: white;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    background: #dcdcdc;
+    margin-bottom: 5px;
+    padding: 4px 8px;
+    border-radius: 5px;
+    gap: 8px;
+}
+
+.item-text {
+    flex: 1;
+    margin-left: 5px;
+}
+
+.remover {
+    background: red;
+    color: white;
+    padding: 3px 6px;
+}
+
+/* DESAFIO PLUS - riscado */
+.comprado {
+    text-decoration: line-through;
+    color: gray;
+}
+
+/* CHECKBOX */
+li input[type="checkbox"] {
+    flex: 0 0 20px;
+    height: 16px;
+}
+
+/* TEXTO (EXPANDE) */
+.item-text {
+    flex: 1; 
+    text-align: left;
+}
+
+/* BOTÃO X */
+.remover {
+    flex: 0 0 25px; 
+    height: 22px;
+    padding: 0;
+    font-size: 12px;
+}
