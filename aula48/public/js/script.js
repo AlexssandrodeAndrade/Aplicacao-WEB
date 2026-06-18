@@ -26,9 +26,7 @@ async function mostrarTabela() {
   const resultado = document.getElementById('resultado')
 
   const templateTabela = await buscarTemplate('/templates/tabela.html')
-  console.log(templateTabela)
   const templateLinha = await buscarTemplate('/templates/linha-tabela.html')
-  console.log(templateLinha)
 
   let linhas = ''
 
