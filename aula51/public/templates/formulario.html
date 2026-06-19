@@ -1,0 +1,32 @@
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-success text-white">
+        Cadastro / Alteração de Jogo
+    </div>
+
+    <div class="card-body">
+        <form id="formJogo" onsubmit="salvarJogo(event)">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Nome</label>
+                    <input id="nome" class="form-control" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Gênero</label>
+                    <input id="genero" class="form-control" required>
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label">Ano</label>
+                    <input id="ano" type="number" class="form-control" required>
+                </div>
+
+                <div class="col-md-2 d-flex align-items-end">
+                    <button class="btn btn-success w-100" type="submit">
+                        Salvar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

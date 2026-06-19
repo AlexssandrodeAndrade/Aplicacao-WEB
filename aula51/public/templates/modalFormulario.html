@@ -1,0 +1,39 @@
+<div class="modal fade" id="modalJogo" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="formJogo" onsubmit="salvarJogo(event)">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloModalJogo">Novo Jogo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nome</label>
+                        <input id="nome" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Gênero</label>
+                        <input id="genero" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Ano</label>
+                        <input id="ano" type="number" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="btn btn-success">
+                        Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
