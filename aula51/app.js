@@ -1,6 +1,8 @@
 const express = require('express')
 
 const app = express()
+app.use(express.json())
+app.use(express.static('public'))
 const PORT = 3000
 
 let jogos = [
@@ -10,8 +12,6 @@ let jogos = [
   { id: 4, nome: 'GTA V', genero: 'Ação', ano: 2013 },
   { id: 5, nome: 'The Sims 4', genero: 'Simulação', ano: 2014 },
 ]
-
-app.use(express.json())
 
 app.get('/jogos', (req, res) => {
   res.json(jogos)
@@ -52,7 +52,5 @@ app.delete('/jogos/:id', (req, res) => {
 
   res.json({ mensagem: 'Jogo deletado com sucesso.' })
 })
-
-app.use(express.static('public'))
 
 app.listen(PORT, () => console.log(`rodando em http://localhost:${PORT}`))
