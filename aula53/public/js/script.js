@@ -1,12 +1,31 @@
-let idEditando = null
-let compradoEditando = false
+const itemPadrao = {
+  id: null,
+  nome: '',
+  comprado: false,
+}
+
+const state = {
+  item: { ...itemPadrao },
+}
+
+const elementos = {
+  lista: document.getElementById('lista'),
+  inputItem: document.getElementById('inputItem'),
+  mensagem: document.getElementById('mensagem'),
+  btnSalvar: document.querySelector('.btn-add'),
+}
+
+function estaEditandoItem(id) {
+  return state.item.id === id
+}
+
+elementos.btnSalvar.addEventListener('click', salvarItem)
 
 async function carregarItens() {
   const resposta = await fetch('/compras')
   const itens = await resposta.json()
 
-  const lista = document.getElementById('lista')
-  lista.innerHTML = ''
+  elementos.lista.innerHTML = ''
 
   itens.forEach((item) => {
     criarItemNaTela(item)
@@ -14,8 +33,6 @@ async function carregarItens() {
 }
 
 function criarItemNaTela(item) {
-  const lista = document.getElementById('lista')
-
   const li = document.createElement('li')
   li.className = 'list-group-item d-flex align-items-center gap-3'
 
@@ -33,91 +50,139 @@ function criarItemNaTela(item) {
 
   const btnEditar = document.createElement('button')
   btnEditar.innerText = 'Editar'
-  btnEditar.className = 'btn btn-outline-warning btn-sm' //editar
+  btnEditar.className = 'btn btn-outline-warning btn-sm'
 
   const btnRemover = document.createElement('button')
   btnRemover.innerText = 'X'
-  btnRemover.className = 'btn btn-outline-danger btn-sm' //remover
+  btnRemover.className = 'btn btn-outline-danger btn-sm'
 
-  checkbox.onchange = async function () {
-    await alterarItem(item.id, item.nome, checkbox.checked)
+  if (estaEditandoItem(item.id)) {
+    btnRemover.title = 'Finalize a edição antes de excluir este item'
+    btnRemover.classList.add('opacity-50')
   }
 
-  btnEditar.onclick = function () {
-    document.getElementById('inputItem').value = item.nome
-
-    idEditando = item.id
-    compradoEditando = item.comprado
-
-    document.querySelector('.btn-add').innerText = 'Salvar Alteração'
-  }
-
-  btnRemover.onclick = async function () {
-    await deletarItem(item.id)
-  }
+  checkbox.addEventListener('change', () =>
+    alterarStatus(item, checkbox.checked),
+  )
+  btnEditar.addEventListener('click', () => editarItem(item))
+  btnRemover.addEventListener('click', () => removerItem(item.id))
 
   li.appendChild(checkbox)
   li.appendChild(span)
   li.appendChild(btnEditar)
   li.appendChild(btnRemover)
 
-  lista.appendChild(li)
+  elementos.lista.appendChild(li)
 }
 
 async function salvarItem() {
-  const mensagem = document.getElementById('mensagem')
-  const input = document.getElementById('inputItem')
-  const nome = input.value.trim()
+  limparMensagem()
 
-  if (nome === '') {
-    mensagem.textContent = 'Digite um item.'
-    mensagem.className = 'text-center fw-bold mt-4 text-warning'
+  const nome = elementos.inputItem.value.trim()
+
+  state.item.nome = nome
+
+  let resposta
+
+  if (state.item.id !== null) {
+    resposta = await alterarItem()
+  } else {
+    resposta = await cadastrarItem()
+  }
+
+  if (!resposta.ok) {
+    const erro = await resposta.json()
+    mostrarErro(erro.erro || 'Erro ao salvar item.')
     return
   }
 
-  if (idEditando !== null) {
-    await alterarItem(idEditando, nome, compradoEditando)
+  limparFormulario()
+  carregarItens()
+}
 
-    idEditando = null
-
-    document.querySelector('.btn-add').innerText = 'Adicionar'
-  } else {
-    await fetch('/compras', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ nome }),
-    })
+async function alterarStatus(item, comprado) {
+  state.item = {
+    ...item,
+    comprado,
   }
 
-  input.value = ''
-  input.focus()
+  const resposta = await alterarItem()
+
+  if (resposta.ok) {
+    carregarItens()
+  }
+}
+
+function editarItem(item) {
+  state.item = { ...item }
+
+  elementos.inputItem.value = item.nome
+  elementos.inputItem.focus()
+  elementos.btnSalvar.innerText = 'Salvar Alteração'
 
   carregarItens()
 }
 
-async function alterarItem(id, nome, comprado) {
-  await fetch(`/compras/${id}`, {
+async function removerItem(id) {
+  if (estaEditandoItem(id)) {
+    mostrarErro('Finalize a edição antes de excluir este item.')
+    return
+  }
+
+  const resposta = await deletarItem(id)
+
+  if (resposta.ok) {
+    carregarItens()
+  }
+}
+
+async function cadastrarItem() {
+  return await fetch('/compras', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      nome: state.item.nome,
+    }),
+  })
+}
+
+async function alterarItem() {
+  return await fetch(`/compras/${state.item.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      nome,
-      comprado,
+      nome: state.item.nome,
+      comprado: state.item.comprado,
     }),
   })
-
-  carregarItens()
 }
 
 async function deletarItem(id) {
-  await fetch(`/compras/${id}`, {
+  return await fetch(`/compras/${id}`, {
     method: 'DELETE',
   })
+}
 
-  carregarItens()
+function limparFormulario() {
+  state.item = { ...itemPadrao }
+
+  elementos.inputItem.value = ''
+  elementos.inputItem.focus()
+  elementos.btnSalvar.innerText = 'Adicionar'
+}
+
+function limparMensagem() {
+  elementos.mensagem.textContent = ''
+  elementos.mensagem.className = ''
+}
+
+function mostrarErro(texto) {
+  elementos.mensagem.textContent = texto
+  elementos.mensagem.className = 'text-center fw-bold mt-4 text-danger'
 }
 
 carregarItens()
