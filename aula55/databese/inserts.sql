@@ -1,0 +1,10 @@
+INSERT INTO usuarios (nome) VALUES ('Alexssandro');
+INSERT INTO usuarios (nome) VALUES ('Maria');
+INSERT INTO usuarios (nome) VALUES ('João');
+INSERT INTO usuarios (nome) VALUES ('Ana');
+INSERT INTO usuarios (nome) VALUES ('Carlos');
+INSERT INTO usuarios (nome) VALUES ('Fernanda');
+INSERT INTO usuarios (nome) VALUES ('Rafael');
+INSERT INTO usuarios (nome) VALUES ('Juliana');
+INSERT INTO usuarios (nome) VALUES ('Lucas');
+INSERT INTO usuarios (nome) VALUES ('Patrícia');
