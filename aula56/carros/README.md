@@ -10,7 +10,6 @@ O objetivo do exercício é criar uma API em Node.js com PostgreSQL para cadastr
 - Express
 - PostgreSQL
 - pg
-- cors
 - dotenv
 - Thunder Client
 
