@@ -1,0 +1,7 @@
+CREATE TABLE carros (
+    id SERIAL PRIMARY KEY,
+    placa VARCHAR(10) NOT NULL UNIQUE,
+    modelo VARCHAR(100) NOT NULL,
+    marca VARCHAR(100) NOT NULL,
+    ano INTEGER NOT NULL
+);

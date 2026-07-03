@@ -1,0 +1,25 @@
+body {
+    min-height: 100vh;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.item-text {
+    flex: 1;
+}
+
+.comprado {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.area-mensagem {
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
