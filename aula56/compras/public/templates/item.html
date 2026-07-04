@@ -1,0 +1,16 @@
+<li class="list-group-item d-flex align-items-center gap-3">
+    <input type="checkbox" class="form-check-input m-0" data-action="status" data-id="{{id}}" {{checked}} />
+
+    <span class="item-text flex-grow-1 {{classeComprado}}">
+        {{nome}}
+    </span>
+
+    <button type="button" class="btn btn-outline-warning btn-sm" data-action="editar" data-id="{{id}}">
+        Editar
+    </button>
+
+    <button type="button" class="btn btn-outline-danger btn-sm {{classeRemover}}" data-action="remover" data-id="{{id}}"
+        title="{{tituloRemover}}">
+        X
+    </button>
+</li>

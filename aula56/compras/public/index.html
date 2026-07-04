@@ -11,18 +11,30 @@
 
 <body class="bg-light">
     <main class="container py-5">
-        <div id="mensagem" class="text-center fw-bold mb-3 area-mensagem"></div>
         <div class="card shadow mx-auto" style="max-width: 500px;">
             <div class="card-body">
                 <h2 class="text-center mb-4">Lista de Compras</h2>
+                <div id="mensagem" class="d-none"></div>
+                <form id="formCompra" class="mb-3">
+                    <input type="hidden" id="inputId">
 
-                <div class="input-group mb-3">
-                    <input type="text" id="inputItem" class="form-control" placeholder="Digite um item">
+                    <div id="modoFormulario" class="alert alert-info text-center py-2 mb-3">
+                        Modo cadastro: informe um item para adicionar na lista.
+                    </div>
 
-                    <button class="btn btn-primary btn-add">
-                        Adicionar
-                    </button>
-                </div>
+                    <div class="input-group">
+                        <input type="text" id="inputItem" class="form-control" placeholder="Digite um item"
+                            autocomplete="off">
+
+                        <button type="submit" class="btn btn-primary btn-add">
+                            Adicionar
+                        </button>
+
+                        <button type="button" id="btnCancelar" class="btn btn-outline-secondary d-none">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
 
                 <ul id="lista" class="list-group"></ul>
             </div>
