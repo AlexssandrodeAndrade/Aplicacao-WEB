@@ -1,6 +1,13 @@
-INSERT INTO carros (placa, modelo, marca, ano) VALUES
-('ABC1D23', 'Civic', 'Honda', 2020),
-('DEF4G56', 'Corolla', 'Toyota', 2021),
-('GHI7J89', 'Gol', 'Volkswagen', 2018),
-('JKL2M34', 'Onix', 'Chevrolet', 2022),
-('MNO5P67', 'Fiesta', 'Ford', 2019);
+INSERT INTO marcas (nome) VALUES
+('Honda'),
+('Toyota'),
+('Volkswagen'),
+('Chevrolet'),
+('Ford');
+
+INSERT INTO carros (modelo, marca_id, ano) VALUES
+('Civic', 1, 2020),
+('Corolla', 2, 2021),
+('Gol', 3, 2018),
+('Onix', 4, 2022),
+('Fiesta', 5, 2019);

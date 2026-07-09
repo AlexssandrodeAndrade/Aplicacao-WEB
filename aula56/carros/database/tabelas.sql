@@ -1,7 +1,15 @@
+CREATE TABLE marcas (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL UNIQUE
+);
+
 CREATE TABLE carros (
     id SERIAL PRIMARY KEY,
-    placa VARCHAR(10) NOT NULL UNIQUE,
     modelo VARCHAR(100) NOT NULL,
-    marca VARCHAR(100) NOT NULL,
-    ano INTEGER NOT NULL
+    marca_id INTEGER NOT NULL,
+    ano INTEGER NOT NULL,
+
+    CONSTRAINT fk_carros_marcas
+        FOREIGN KEY (marca_id)
+        REFERENCES marcas(id)
 );
