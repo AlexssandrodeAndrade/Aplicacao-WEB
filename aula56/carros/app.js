@@ -16,7 +16,12 @@ app.get('/', (req, res) => {
 
 app.use('/api', apiRoutes);
 
-const porta = process.env.PORT;
+const porta = Number(process.env.PORT);
+
+if (!porta) {
+    console.error('Erro: variável PORT não configurada no arquivo .env');
+    process.exit(1);
+}
 
 app.listen(porta, () => {
     console.log(`Servidor rodando na porta ${porta}`);
