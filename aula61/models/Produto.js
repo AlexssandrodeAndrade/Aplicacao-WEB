@@ -23,5 +23,29 @@ class Produto {
             [this.nome, this.preco],
         );
     }
+
+    async atualizar() {
+        const resultado = await pool.query(
+            `UPDATE produtos
+            SET nome = $1,
+                preco = $2
+            WHERE id = $3
+            RETURNING *`,
+            [this.nome, this.preco, this.id],
+        );
+
+        return resultado.rows[0];
+    }
+
+    static async excluir(id) {
+        const resultado = await pool.query(
+            `DELETE FROM produtos
+            WHERE id = $1
+            RETURNING *`,
+            [id],
+        );
+
+        return resultado.rows[0];
+    }
 }
 module.exports = Produto;
