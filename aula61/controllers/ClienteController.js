@@ -40,16 +40,12 @@ class ClienteController {
                 });
             }
 
-            const cliente = new Cliente(
-                null,
-                nome.trim(),
-                email.trim().toLowerCase(),
-            );
+            const cliente = new Cliente(null, nome.trim(), email.trim().toLowerCase());
 
             const clienteCadastrado = await cliente.cadastrar();
 
             return res.status(201).json({
-                mensagem: 'Cliente inserido com sucesso!',
+                mensagem: 'Cliente cadastrado com sucesso!',
                 cliente: clienteCadastrado,
             });
         } catch (erro) {
@@ -89,11 +85,7 @@ class ClienteController {
                 });
             }
 
-            const cliente = new Cliente(
-                Number(id),
-                nome.trim(),
-                email.trim().toLowerCase(),
-            );
+            const cliente = new Cliente(Number(id), nome.trim(), email.trim().toLowerCase());
 
             const clienteAtualizado = await cliente.atualizar();
 
@@ -149,8 +141,7 @@ class ClienteController {
 
             if (erro.code === '23503') {
                 return res.status(409).json({
-                    mensagem:
-                        'O cliente não pode ser excluído porque possui pedidos.',
+                    mensagem: 'O cliente não pode ser excluído porque possui pedidos.',
                 });
             }
 
