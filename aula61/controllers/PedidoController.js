@@ -16,6 +16,13 @@ function validarPedido(clienteId, produtos) {
         };
     }
 
+    if (!Array.isArray(produtos) || produtos.length === 0) {
+        return {
+            valido: false,
+            mensagem: 'O pedido deve possuir pelo menos um produto.',
+        };
+    }
+
     const produtosNumericos = produtos.map(Number);
 
     if (produtosNumericos.some((produtoId) => !idValido(produtoId))) {

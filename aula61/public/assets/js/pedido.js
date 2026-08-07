@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
         preencherClientes();
         preencherProdutos();
 
-        const podeCadastrar = clientes.length > 0 && produtos.length >= 2;
+        const podeCadastrar = clientes.length > 0 && produtos.length > 0;
         botaoSalvar.disabled = !podeCadastrar;
 
         if (!podeCadastrar) {
@@ -251,6 +251,12 @@ document.addEventListener('DOMContentLoaded', () => {
         ).map((checkbox) => Number(checkbox.value));
 
         if (!form.checkValidity()) {
+            return;
+        }
+
+        if (produtosSelecionados.length === 0) {
+            ui.mostrarMensagem('Selecione pelo menos um produto.', 'warning');
+
             return;
         }
 
