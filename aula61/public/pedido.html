@@ -1,0 +1,223 @@
+        <!doctype html>
+        <html lang="pt-BR">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+
+            <title>Pedidos | Sistema de Pedidos</title>
+
+            <link
+                href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+                rel="stylesheet"
+                integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+                crossorigin="anonymous"
+            >
+
+            <link rel="stylesheet" href="assets/css/style.css">
+        </head>
+
+        <body>
+
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-semibold" href="index.html">
+                Sistema de Pedidos
+            </a>
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#menuPrincipal"
+                aria-controls="menuPrincipal"
+                aria-expanded="false"
+                aria-label="Abrir navegação"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menuPrincipal">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li><li class="nav-item"><a class="nav-link" href="cliente.html">Clientes</a></li><li class="nav-item"><a class="nav-link" href="produto.html">Produtos</a></li><li class="nav-item"><a class="nav-link active" href="pedido.html" aria-current="page">Pedidos</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+<main class="container py-5">
+    <div class="page-heading mb-4">
+        <p class="text-uppercase small fw-semibold text-primary mb-1">
+            Movimentação
+        </p>
+        <h1 class="h2 mb-2">Pedidos</h1>
+        <p class="text-body-secondary mb-0">
+            Cada pedido deve possuir um cliente e pelo menos dois produtos.
+        </p>
+    </div>
+
+    <div id="mensagemPagina" aria-live="polite"></div>
+
+    <div class="row g-4">
+        <div class="col-lg-5">
+            <section class="card border-0 shadow-sm sticky-lg-top form-card">
+                <div class="card-body p-4">
+                    <h2 class="h5 mb-4" id="tituloFormulario">
+                        Novo pedido
+                    </h2>
+
+                    <form id="formPedido" novalidate>
+                        <input type="hidden" id="pedidoId">
+
+                        <div class="mb-4">
+                            <label class="form-label" for="clienteId">
+                                Cliente
+                            </label>
+
+                            <select
+                                class="form-select"
+                                id="clienteId"
+                                name="clienteId"
+                                required
+                            >
+                                <option value="">Selecione um cliente</option>
+                            </select>
+
+                            <div class="invalid-feedback">
+                                Selecione um cliente.
+                            </div>
+                        </div>
+
+                        <fieldset class="mb-4">
+                            <legend class="form-label fs-6 mb-2">
+                                Produtos
+                            </legend>
+
+                            <p class="small text-body-secondary">
+                                Marque pelo menos dois produtos diferentes.
+                            </p>
+
+                            <div
+                                class="product-checklist border rounded-3 p-3"
+                                id="listaProdutos"
+                            ></div>
+                        </fieldset>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" id="botaoSalvar" type="submit">
+                                Cadastrar pedido
+                            </button>
+
+                            <button
+                                class="btn btn-outline-secondary d-none"
+                                id="botaoCancelar"
+                                type="button"
+                            >
+                                Cancelar edição
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <div class="col-lg-7">
+            <section class="card border-0 shadow-sm">
+                <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
+                    <h2 class="h5 mb-0">Pedidos cadastrados</h2>
+
+                    <button class="btn btn-outline-primary btn-sm" id="botaoAtualizarLista">
+                        Atualizar
+                    </button>
+                </div>
+
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">Produtos</th>
+                                    <th scope="col" class="text-end">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaPedidos"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+
+
+
+    <div
+        class="modal fade"
+        id="confirmacaoModal"
+        tabindex="-1"
+        aria-labelledby="confirmacaoModalTitulo"
+        aria-hidden="true"
+    >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5" id="confirmacaoModalTitulo">
+                        Confirmar exclusão
+                    </h2>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Fechar"
+                    ></button>
+                </div>
+
+                <div class="modal-body">
+                    <p class="mb-0" id="confirmacaoModalMensagem">
+                        Deseja realmente excluir este registro?
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn btn-danger"
+                        id="confirmacaoModalBotao"
+                    >
+                        Excluir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+            <footer class="border-top bg-white mt-auto">
+                <div class="container py-3 text-center text-body-secondary small">
+                    Exercício Aula 61 — CRUD de clientes, produtos e pedidos
+                </div>
+            </footer>
+
+            <script
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+                crossorigin="anonymous"
+                defer
+            ></script>
+
+            <script src="assets/js/api.js" defer></script>
+            <script src="assets/js/common.js" defer></script>
+            <script src="assets/js/pedido.js" defer></script>
+        </body>
+        </html>

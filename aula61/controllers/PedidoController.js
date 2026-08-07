@@ -16,13 +16,6 @@ function validarPedido(clienteId, produtos) {
         };
     }
 
-    if (!Array.isArray(produtos) || produtos.length < 2) {
-        return {
-            valido: false,
-            mensagem: 'O pedido deve possuir pelo menos dois produtos.',
-        };
-    }
-
     const produtosNumericos = produtos.map(Number);
 
     if (produtosNumericos.some((produtoId) => !idValido(produtoId))) {
@@ -72,11 +65,7 @@ class PedidoController {
                 });
             }
 
-            const pedido = new Pedido(
-                null,
-                validacao.clienteId,
-                validacao.produtos,
-            );
+            const pedido = new Pedido(null, validacao.clienteId, validacao.produtos);
 
             const pedidoCadastrado = await pedido.cadastrar();
 
@@ -89,8 +78,7 @@ class PedidoController {
 
             if (erro.code === '23503') {
                 return res.status(400).json({
-                    mensagem:
-                        'O cliente ou algum produto informado não existe.',
+                    mensagem: 'O cliente ou algum produto informado não existe.',
                 });
             }
 
@@ -119,11 +107,7 @@ class PedidoController {
                 });
             }
 
-            const pedido = new Pedido(
-                Number(id),
-                validacao.clienteId,
-                validacao.produtos,
-            );
+            const pedido = new Pedido(Number(id), validacao.clienteId, validacao.produtos);
 
             const pedidoAtualizado = await pedido.atualizar();
 
@@ -142,8 +126,7 @@ class PedidoController {
 
             if (erro.code === '23503') {
                 return res.status(400).json({
-                    mensagem:
-                        'O cliente ou algum produto informado não existe.',
+                    mensagem: 'O cliente ou algum produto informado não existe.',
                 });
             }
 

@@ -1,0 +1,188 @@
+        <!doctype html>
+        <html lang="pt-BR">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+
+            <title>Início | Sistema de Pedidos</title>
+
+            <link
+                href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+                rel="stylesheet"
+                integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+                crossorigin="anonymous"
+            >
+
+            <link rel="stylesheet" href="assets/css/style.css">
+        </head>
+
+        <body>
+
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-semibold" href="index.html">
+                Sistema de Pedidos
+            </a>
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#menuPrincipal"
+                aria-controls="menuPrincipal"
+                aria-expanded="false"
+                aria-label="Abrir navegação"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menuPrincipal">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html" aria-current="page">Início</a></li><li class="nav-item"><a class="nav-link" href="cliente.html">Clientes</a></li><li class="nav-item"><a class="nav-link" href="produto.html">Produtos</a></li><li class="nav-item"><a class="nav-link" href="pedido.html">Pedidos</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+<main class="container py-5">
+    <section class="hero-panel p-4 p-md-5 mb-4">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+                <span class="badge text-bg-light mb-3">Backend Node.js + PostgreSQL</span>
+
+                <h1 class="display-6 fw-bold mb-3">
+                    Gerenciamento de clientes, produtos e pedidos
+                </h1>
+
+                <p class="lead mb-0">
+                    Use os módulos abaixo para cadastrar, consultar, atualizar
+                    e excluir os registros da aplicação.
+                </p>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="bg-white text-dark rounded-3 p-4 shadow-sm">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <span class="fw-semibold">Situação da API</span>
+                        <span
+                            class="badge text-bg-secondary"
+                            id="statusApi"
+                        >
+                            Verificando...
+                        </span>
+                    </div>
+
+                    <p class="small text-body-secondary mt-3 mb-0">
+                        A página utiliza as rotas do mesmo servidor Express.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="mensagemPagina" aria-live="polite"></div>
+
+    <section aria-labelledby="tituloModulos">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h2 class="h4 mb-0" id="tituloModulos">Módulos</h2>
+            <button class="btn btn-outline-primary btn-sm" id="botaoAtualizar">
+                Atualizar indicadores
+            </button>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <article class="card h-100 border-0 shadow-sm module-card">
+                    <div class="card-body p-4">
+                        <p class="text-uppercase small fw-semibold text-primary mb-2">
+                            Cadastros
+                        </p>
+
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h3 class="h4 mb-0">Clientes</h3>
+                            <span class="display-6 fw-bold" id="totalClientes">—</span>
+                        </div>
+
+                        <p class="text-body-secondary mt-3">
+                            Gerencie nome e e-mail dos clientes.
+                        </p>
+
+                        <a class="btn btn-primary w-100" href="cliente.html">
+                            Abrir clientes
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <div class="col-md-4">
+                <article class="card h-100 border-0 shadow-sm module-card">
+                    <div class="card-body p-4">
+                        <p class="text-uppercase small fw-semibold text-primary mb-2">
+                            Catálogo
+                        </p>
+
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h3 class="h4 mb-0">Produtos</h3>
+                            <span class="display-6 fw-bold" id="totalProdutos">—</span>
+                        </div>
+
+                        <p class="text-body-secondary mt-3">
+                            Gerencie nome e preço dos produtos.
+                        </p>
+
+                        <a class="btn btn-primary w-100" href="produto.html">
+                            Abrir produtos
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <div class="col-md-4">
+                <article class="card h-100 border-0 shadow-sm module-card">
+                    <div class="card-body p-4">
+                        <p class="text-uppercase small fw-semibold text-primary mb-2">
+                            Movimentação
+                        </p>
+
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h3 class="h4 mb-0">Pedidos</h3>
+                            <span class="display-6 fw-bold" id="totalPedidos">—</span>
+                        </div>
+
+                        <p class="text-body-secondary mt-3">
+                            Relacione um cliente a dois ou mais produtos.
+                        </p>
+
+                        <a class="btn btn-primary w-100" href="pedido.html">
+                            Abrir pedidos
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+
+
+            <footer class="border-top bg-white mt-auto">
+                <div class="container py-3 text-center text-body-secondary small">
+                    Exercício Aula 61 — CRUD de clientes, produtos e pedidos
+                </div>
+            </footer>
+
+            <script
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+                crossorigin="anonymous"
+                defer
+            ></script>
+
+            <script src="assets/js/api.js" defer></script>
+            <script src="assets/js/common.js" defer></script>
+            <script src="assets/js/index.js" defer></script>
+        </body>
+        </html>

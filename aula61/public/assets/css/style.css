@@ -1,0 +1,89 @@
+:root {
+    --app-background: #f4f6f9;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--app-background);
+}
+
+main {
+    flex: 1;
+}
+
+.hero-panel {
+    color: #fff;
+    border-radius: 1rem;
+    background:
+        linear-gradient(135deg, rgba(13, 110, 253, 0.98), rgba(76, 29, 149, 0.94));
+    box-shadow: 0 1rem 2.5rem rgba(31, 41, 55, 0.15);
+}
+
+.module-card {
+    transition:
+        transform 160ms ease,
+        box-shadow 160ms ease;
+}
+
+.module-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 1rem 2rem rgba(31, 41, 55, 0.12) !important;
+}
+
+.form-card {
+    top: 1.5rem;
+}
+
+.page-heading {
+    max-width: 52rem;
+}
+
+.table th,
+.table td {
+    padding: 0.9rem 1rem;
+}
+
+.table-actions {
+    white-space: nowrap;
+}
+
+.product-checklist {
+    max-height: 19rem;
+    overflow-y: auto;
+    background: #fff;
+}
+
+.product-checklist .form-check + .form-check {
+    margin-top: 0.75rem;
+}
+
+.empty-state {
+    padding: 2rem 1rem !important;
+    text-align: center;
+    color: var(--bs-secondary-color);
+}
+
+.badge-product {
+    display: inline-block;
+    margin: 0.15rem 0.15rem 0.15rem 0;
+    white-space: normal;
+    text-align: left;
+}
+
+.loading-row td {
+    padding: 2rem 1rem;
+    text-align: center;
+    color: var(--bs-secondary-color);
+}
+
+@media (max-width: 991.98px) {
+    .form-card {
+        position: static !important;
+    }
+}
