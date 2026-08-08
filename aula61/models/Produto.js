@@ -16,12 +16,15 @@ class Produto {
     }
 
     async cadastrar() {
-        await pool.query(
+        const resultado = await pool.query(
             `INSERT INTO produtos
-           (nome, preco)
-           VALUES ($1, $2)`,
+        (nome, preco)
+        VALUES ($1, $2)
+        RETURNING *`,
             [this.nome, this.preco],
         );
+
+        return resultado.rows[0];
     }
 
     async atualizar() {

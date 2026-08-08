@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!podeCadastrar) {
             ui.mostrarMensagem(
-                'Para cadastrar pedidos, é necessário ter pelo menos um cliente e dois produtos.',
+                'Para cadastrar pedidos, é necessário ter pelo menos um cliente e um produto.',
                 'warning',
             );
         }
