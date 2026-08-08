@@ -1,15 +1,21 @@
 const Produto = require('../models/Produto');
 
+function idValido(id) {
+    const numero = Number(id);
+
+    return Number.isInteger(numero) && numero > 0;
+}
+
 class ProdutoController {
     async listar(req, res) {
         try {
             const produtos = await Produto.listar();
 
-            res.status(200).json(produtos);
+            return res.status(200).json(produtos);
         } catch (erro) {
             console.error(erro);
 
-            res.status(500).json({
+            return res.status(500).json({
                 mensagem: 'Erro ao listar produtos.',
             });
         }
@@ -18,19 +24,31 @@ class ProdutoController {
     async cadastrar(req, res) {
         try {
             const { nome, preco } = req.body;
+            const precoNumerico = Number(preco);
 
-            const produto = new Produto(null, nome, preco);
+            if (
+                typeof nome !== 'string' ||
+                nome.trim() === '' ||
+                !Number.isFinite(precoNumerico) ||
+                precoNumerico <= 0
+            ) {
+                return res.status(400).json({
+                    mensagem: 'Informe um nome e um preço válidos.',
+                });
+            }
+
+            const produto = new Produto(null, nome.trim(), precoNumerico);
 
             const produtoCadastrado = await produto.cadastrar();
 
-            res.status(201).json({
-                mensagem: 'Produto inserido com sucesso!',
+            return res.status(201).json({
+                mensagem: 'Produto cadastrado com sucesso!',
                 produto: produtoCadastrado,
             });
         } catch (erro) {
             console.error(erro);
 
-            res.status(500).json({
+            return res.status(500).json({
                 mensagem: 'Erro ao cadastrar produto.',
             });
         }
@@ -40,8 +58,26 @@ class ProdutoController {
         try {
             const { id } = req.params;
             const { nome, preco } = req.body;
+            const precoNumerico = Number(preco);
 
-            const produto = new Produto(id, nome, preco);
+            if (!idValido(id)) {
+                return res.status(400).json({
+                    mensagem: 'O ID do produto é inválido.',
+                });
+            }
+
+            if (
+                typeof nome !== 'string' ||
+                nome.trim() === '' ||
+                !Number.isFinite(precoNumerico) ||
+                precoNumerico <= 0
+            ) {
+                return res.status(400).json({
+                    mensagem: 'Informe um nome e um preço válidos.',
+                });
+            }
+
+            const produto = new Produto(Number(id), nome.trim(), precoNumerico);
 
             const produtoAtualizado = await produto.atualizar();
 
@@ -51,14 +87,14 @@ class ProdutoController {
                 });
             }
 
-            res.status(200).json({
+            return res.status(200).json({
                 mensagem: 'Produto atualizado com sucesso!',
                 produto: produtoAtualizado,
             });
         } catch (erro) {
             console.error(erro);
 
-            res.status(500).json({
+            return res.status(500).json({
                 mensagem: 'Erro ao atualizar produto.',
             });
         }
@@ -68,7 +104,13 @@ class ProdutoController {
         try {
             const { id } = req.params;
 
-            const produtoExcluido = await Produto.excluir(id);
+            if (!idValido(id)) {
+                return res.status(400).json({
+                    mensagem: 'O ID do produto é inválido.',
+                });
+            }
+
+            const produtoExcluido = await Produto.excluir(Number(id));
 
             if (!produtoExcluido) {
                 return res.status(404).json({
@@ -76,14 +118,20 @@ class ProdutoController {
                 });
             }
 
-            res.status(200).json({
+            return res.status(200).json({
                 mensagem: 'Produto excluído com sucesso!',
                 produto: produtoExcluido,
             });
         } catch (erro) {
             console.error(erro);
 
-            res.status(500).json({
+            if (erro.code === '23503') {
+                return res.status(409).json({
+                    mensagem: 'O produto não pode ser excluído porque pertence a um pedido.',
+                });
+            }
+
+            return res.status(500).json({
                 mensagem: 'Erro ao excluir produto.',
             });
         }
