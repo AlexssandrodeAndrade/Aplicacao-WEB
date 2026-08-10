@@ -1,235 +1,123 @@
+import 'dotenv/config';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-
-import dotenv from 'dotenv';
 import pg from 'pg';
 
 const { Client } = pg;
 
-const pastaAtual = dirname(fileURLToPath(import.meta.url));
-const raizProjeto = join(pastaAtual, '..');
-const caminhoEnv = join(raizProjeto, '.env');
-const caminhoEnvExemplo = join(raizProjeto, '.env.example');
+const raizProjeto = join(dirname(fileURLToPath(import.meta.url)), '..');
 
-const existeEnv = existsSync(caminhoEnv);
-const arquivoEnv = existeEnv ? caminhoEnv : caminhoEnvExemplo;
-const argumentos = process.argv.slice(2);
-const usarForce = argumentos.includes('--force');
-const mostrarAjuda = argumentos.includes('--help') || argumentos.includes('-h');
-const argumentosPermitidos = new Set(['--force', '--help', '-h']);
+const nomeBanco = process.env.DB_NAME;
+const forcarRecriacao = process.argv.includes('--force');
 
-const argumentosInvalidos = argumentos.filter(
-  (argumento) => !argumentosPermitidos.has(argumento)
-);
-
-if (argumentosInvalidos.length > 0) {
-  console.error(`Argumentos invalidos: ${argumentosInvalidos.join(', ')}`);
-  console.error('Use --help para ver as opcoes disponiveis.');
-  process.exit(1);
-}
-
-if (mostrarAjuda) {
-  console.log(`
-Uso:
-  npm run db:setup
-  npm run db:reset
-
-Opcoes:
-  --force   Apaga e recria o banco configurado em DB_NAME.
-`);
-  process.exit(0);
-}
-
-if (existsSync(arquivoEnv)) {
-  dotenv.config({ path: arquivoEnv });
-}
-
-const nomeBanco = process.env.DB_NAME?.trim() || 'lanchonete';
-const senhaBanco = process.env.DB_PASSWORD?.trim();
-
-const conexaoBase = {
-  host: process.env.DB_HOST?.trim() || 'localhost',
-  port: Number(process.env.DB_PORT || 5432),
-  user: process.env.DB_USER?.trim() || 'postgres'
+const configuracao = {
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT || 5432),
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
 };
 
-if (senhaBanco && senhaBanco !== 'sua_senha') {
-  conexaoBase.password = senhaBanco;
+if (!nomeBanco) {
+    throw new Error('DB_NAME não foi definido no arquivo .env.');
 }
 
-if (!Number.isInteger(conexaoBase.port) || conexaoBase.port <= 0) {
-  throw new Error('DB_PORT precisa ser um numero valido.');
+if (!/^[a-zA-Z0-9_]+$/.test(nomeBanco)) {
+    throw new Error('DB_NAME deve conter somente letras, números e underline.');
 }
 
-function escaparIdentificador(valor) {
-  if (!valor || valor.includes('\0')) {
-    throw new Error('DB_NAME invalido.');
-  }
+async function criarBanco() {
+    const cliente = new Client({
+        ...configuracao,
+        database: 'postgres',
+    });
 
-  return `"${valor.replaceAll('"', '""')}"`;
+    await cliente.connect();
+
+    try {
+        const resultado = await cliente.query('SELECT 1 FROM pg_database WHERE datname = $1', [
+            nomeBanco,
+        ]);
+
+        const bancoExiste = resultado.rowCount > 0;
+
+        if (bancoExiste && !forcarRecriacao) {
+            console.log(`Banco "${nomeBanco}" já existe.`);
+            console.log('Use npm run db:reset para recriá-lo.');
+            return false;
+        }
+
+        if (bancoExiste) {
+            await cliente.query(
+                `SELECT pg_terminate_backend(pid)
+         FROM pg_stat_activity
+         WHERE datname = $1 AND pid <> pg_backend_pid()`,
+                [nomeBanco],
+            );
+
+            await cliente.query(`DROP DATABASE "${nomeBanco}"`);
+            console.log(`Banco "${nomeBanco}" removido.`);
+        }
+
+        await cliente.query(`CREATE DATABASE "${nomeBanco}"`);
+        console.log(`Banco "${nomeBanco}" criado.`);
+
+        return true;
+    } finally {
+        await cliente.end();
+    }
 }
 
-function validarBancoAlvo() {
-  const bancosProtegidos = new Set(['postgres', 'template0', 'template1']);
+async function executarPasta(cliente, pasta) {
+    const caminhoPasta = join(raizProjeto, pasta);
 
-  if (bancosProtegidos.has(nomeBanco.toLowerCase())) {
-    throw new Error(`DB_NAME nao pode ser "${nomeBanco}". Escolha outro banco.`);
-  }
-}
-
-async function bancoExiste(cliente) {
-  const resultado = await cliente.query(
-    'SELECT 1 FROM pg_database WHERE datname = $1',
-    [nomeBanco]
-  );
-
-  return resultado.rowCount > 0;
-}
-
-async function derrubarConexoesBanco(cliente) {
-  await cliente.query(
-    `
-      SELECT pg_terminate_backend(pid)
-      FROM pg_stat_activity
-      WHERE datname = $1
-        AND pid <> pg_backend_pid()
-    `,
-    [nomeBanco]
-  );
-}
-
-async function prepararBanco() {
-  validarBancoAlvo();
-
-  const cliente = new Client({
-    ...conexaoBase,
-    database: 'postgres'
-  });
-
-  await cliente.connect();
-
-  try {
-    const existeBanco = await bancoExiste(cliente);
-
-    if (usarForce && existeBanco) {
-      console.log(`Apagando banco "${nomeBanco}" por causa do --force...`);
-      await derrubarConexoesBanco(cliente);
-      await cliente.query(`DROP DATABASE ${escaparIdentificador(nomeBanco)}`);
-    } else if (existeBanco) {
-      console.log(`Banco "${nomeBanco}" ja existe. Nada foi alterado.`);
-      console.log('Para recriar tudo do zero, rode: npm run db:reset');
-      return false;
+    if (!existsSync(caminhoPasta)) {
+        console.log(`Pasta ${pasta} não encontrada. Ignorando.`);
+        return;
     }
 
-    await cliente.query(`CREATE DATABASE ${escaparIdentificador(nomeBanco)}`);
-    console.log(`Banco "${nomeBanco}" criado.`);
-    return true;
-  } finally {
-    await cliente.end();
-  }
-}
+    const arquivos = readdirSync(caminhoPasta)
+        .filter((arquivo) => arquivo.endsWith('.sql'))
+        .sort();
 
-async function executarScript(cliente, caminhoRelativo) {
-  const caminhoCompleto = join(raizProjeto, caminhoRelativo);
-
-  if (!existsSync(caminhoCompleto)) {
-    throw new Error(`Script nao encontrado: ${caminhoRelativo}`);
-  }
-
-  const sql = readFileSync(caminhoCompleto, 'utf8').trim();
-
-  if (!sql) {
-    console.log(`Script vazio ignorado: ${caminhoRelativo}`);
-    return;
-  }
-
-  console.log(`Executando script: ${caminhoRelativo}`);
-  await cliente.query(sql);
-}
-
-function listarArquivosSql(caminhoRelativoPasta, obrigatorio = true) {
-  const pastaCompleta = join(raizProjeto, caminhoRelativoPasta);
-
-  if (!existsSync(pastaCompleta)) {
-    if (obrigatorio) {
-      throw new Error(`Pasta ${caminhoRelativoPasta} nao encontrada.`);
+    if (arquivos.length === 0) {
+        console.log(`Nenhum script encontrado em ${pasta}.`);
+        return;
     }
 
-    return [];
-  }
+    for (const arquivo of arquivos) {
+        const caminhoArquivo = join(caminhoPasta, arquivo);
+        const sql = readFileSync(caminhoArquivo, 'utf8');
 
-  const arquivosSql = readdirSync(pastaCompleta)
-    .filter((arquivo) => arquivo.toLowerCase().endsWith('.sql'))
-    .sort((a, b) => a.localeCompare(b));
-
-  if (obrigatorio && arquivosSql.length === 0) {
-    throw new Error(`Nenhum script .sql encontrado em ${caminhoRelativoPasta}.`);
-  }
-
-  return arquivosSql.map((arquivo) => join(caminhoRelativoPasta, arquivo));
+        console.log(`Executando: ${pasta}/${arquivo}`);
+        await cliente.query(sql);
+    }
 }
 
-async function executarGrupoScripts(cliente, nomeGrupo, pasta, obrigatorio) {
-  const arquivos = listarArquivosSql(pasta, obrigatorio);
+async function configurarBanco() {
+    const bancoCriado = await criarBanco();
 
-  if (arquivos.length === 0) {
-    console.log(`Nenhum script encontrado em ${pasta}.`);
-    return;
-  }
+    if (!bancoCriado) return;
 
-  console.log(`Executando ${nomeGrupo}:`);
+    const cliente = new Client({
+        ...configuracao,
+        database: nomeBanco,
+    });
 
-  for (const arquivo of arquivos) {
-    await executarScript(cliente, arquivo);
-  }
+    await cliente.connect();
+
+    try {
+        await executarPasta(cliente, 'database/tables');
+        await executarPasta(cliente, 'database/seeds');
+
+        console.log('Banco configurado com sucesso.');
+    } finally {
+        await cliente.end();
+    }
 }
 
-async function executarScriptsDoBanco() {
-  const cliente = new Client({
-    ...conexaoBase,
-    database: nomeBanco
-  });
-
-  await cliente.connect();
-
-  try {
-    await executarGrupoScripts(cliente, 'criacao de tabelas', 'database/tables', true);
-    await executarGrupoScripts(cliente, 'dados de teste', 'database/seeds', false);
-  } finally {
-    await cliente.end();
-  }
-}
-
-async function main() {
-  if (existeEnv) {
-    console.log('Arquivo .env encontrado. Usando dados dele.');
-  } else {
-    console.log('Arquivo .env nao encontrado. Usando valores padrao do projeto.');
-  }
-
-  if (usarForce) {
-    console.log('Modo --force ativo. O banco sera recriado do zero.');
-  }
-
-  const deveExecutarScripts = await prepararBanco();
-
-  if (!deveExecutarScripts) {
-    return;
-  }
-
-  await executarScriptsDoBanco();
-
-  console.log('Banco criado e configurado com sucesso.');
-}
-
-main().catch((erro) => {
-  console.error('Nao foi possivel configurar o banco.');
-  console.error(erro.message);
-
-  if (!existeEnv || senhaBanco === 'sua_senha') {
-    console.error('Confira o arquivo .env e coloque a senha correta do PostgreSQL.');
-  }
-
-  process.exit(1);
+configurarBanco().catch((erro) => {
+    console.error('Erro ao configurar o banco:');
+    console.error(erro.message);
+    process.exit(1);
 });
