@@ -1,4 +1,3 @@
-// const bcrypt = require('bcryptjs');
 import bcrypt from 'bcryptjs';
 async function gerarHash(palavra) {
     const hash = await bcrypt.hash(palavra, 10);

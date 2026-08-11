@@ -43,14 +43,9 @@ class UsuarioController {
                 });
             }
 
-            const senhaCriptografada = await bcrypt.hash(senha, 10);
+            const senhaHash = await bcrypt.hash(senha, 10);
 
-            const usuario = new Usuario(
-                null,
-                nome.trim(),
-                email.trim().toLowerCase(),
-                senhaCriptografada,
-            );
+            const usuario = new Usuario(null, nome.trim(), email.trim().toLowerCase(), senhaHash);
 
             const usuarioCadastrado = await usuario.cadastrar();
 
