@@ -2,67 +2,78 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Usuários | Aula 62</title>
-  <link rel="stylesheet" href="/css/style.css">
-  <script src="/js/usuarios.js" defer></script>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Aula 63 | Autenticação</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
-  <header class="topbar">
-    <div class="marca"><b>U</b><span><strong>Aula 62</strong><small>Gerenciamento de usuários</small></span></div>
-    <span id="status-api" class="status">Conectando à API...</span>
-  </header>
+<body class="bg-light">
 
-  <section class="hero">
-    <div><small>APLICAÇÕES WEB • SENAI</small>
-      <h1>Usuários</h1>
-      <p>Cadastre, encontre e mantenha os usuários da aplicação em um só lugar.</p>
-    </div>
-    <div class="contador"><strong id="total-usuarios">0</strong><span>usuários cadastrados</span></div>
-  </section>
+    <main class="container py-5">
 
-  <main class="conteudo">
-    <section class="painel formulario-painel">
-      <div class="titulo"><b>01</b><span>
-          <h2 id="titulo-formulario">Novo usuário</h2><small>Preencha os dados abaixo</small>
-        </span></div>
-      <form id="form-usuario">
-        <input id="usuario-id" type="hidden">
-        <label>Nome completo<input id="nome" placeholder="Ex.: Maria da Silva" required></label>
-        <label>E-mail<input id="email" type="email" placeholder="nome@email.com" required></label>
-        <label>Senha<input id="senha" type="password" placeholder="Mínimo de 5 caracteres" minlength="5"
-            required></label>
-        <button class="primario" type="submit"><span id="texto-botao">Cadastrar usuário</span><b>→</b></button>
-        <button id="cancelar" class="cancelar" type="button" hidden>Cancelar edição</button>
-      </form>
-      <p id="mensagem" class="mensagem">Pronto para gerenciar usuários.</p>
-    </section>
+        <div class="mb-5">
+            <p class="text-secondary mb-2">
+                APLICAÇÕES WEB • SENAI
+            </p>
 
-    <section class="painel lista-painel">
-      <div class="lista-cabecalho">
-        <div class="titulo"><b>02</b><span>
-            <h2>Lista de usuários</h2><small id="quantidade-resultados">0 resultado(s)</small>
-          </span></div>
-        <input id="busca" class="busca" placeholder="Buscar nome ou e-mail">
-      </div>
-      <div class="tabela-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>USUÁRIO</th>
-              <th>E-MAIL</th>
-              <th>AÇÕES</th>
-            </tr>
-          </thead>
-          <tbody id="lista-usuarios"></tbody>
-        </table>
-      </div>
-    </section>
-  </main>
+            <h1>Aula 63</h1>
 
-  <footer><span>Aula 62 • CRUD de usuários</span><span>Node.js + Express + PostgreSQL</span></footer>
+            <p class="lead">
+                Autenticação e gerenciamento de usuários com JWT.
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm">
+
+                    <div class="card-body">
+                        <h2 class="h4">
+                            Login
+                        </h2>
+
+                        <p class="text-secondary">
+                            Entre na aplicação para gerar seu token
+                            de autenticação.
+                        </p>
+
+                        <a href="/login/login.html" class="btn btn-outline-primary">
+                            Acessar login
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm">
+
+                    <div class="card-body">
+                        <h2 class="h4">
+                            Usuários
+                        </h2>
+
+                        <p class="text-secondary">
+                            Cadastre, consulte, altere e exclua usuários.
+                        </p>
+
+                        <a href="/usuarios/usuarios.html" class="btn btn-primary">
+                            Gerenciar usuários
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
 </body>
 
 </html>

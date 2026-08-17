@@ -23,6 +23,17 @@ class Usuario {
         return resultado.rows;
     }
 
+    static async buscarPorEmail(email) {
+        const resultado = await pool.query(
+            `SELECT id, nome, email, senha
+         FROM usuarios
+         WHERE email = $1`,
+            [email],
+        );
+
+        return resultado.rows[0];
+    }
+
     async cadastrar() {
         const resultado = await pool.query(
             `INSERT INTO usuarios (nome, email, senha)
