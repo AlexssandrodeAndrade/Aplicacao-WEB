@@ -1,3 +1,9 @@
+const token = localStorage.getItem('token');
+
+if (token) {
+    window.location.replace('/usuarios/usuarios.html');
+}
+
 const formLogin = document.querySelector('#form-login');
 const inputEmail = document.querySelector('#email');
 const inputSenha = document.querySelector('#senha');

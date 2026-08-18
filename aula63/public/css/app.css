@@ -229,30 +229,6 @@ footer {
     font-size: 11px;
 }
 
-.menu {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 22px;
-}
-
-.menu-item {
-    padding: 28px;
-}
-
-.menu-item p {
-    min-height: 42px;
-    margin: 24px 0;
-    color: var(--cinza);
-    line-height: 1.5;
-}
-
-@media (max-width: 700px) {
-    .menu {
-        grid-template-columns: 1fr;
-    }
-}
-
-
 /* RESPONSIVO */
 
 @media (max-width: 800px) {

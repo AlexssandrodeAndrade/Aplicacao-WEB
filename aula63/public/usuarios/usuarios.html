@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Usuários</title>
+  <title>Usuários | Aula 63</title>
   <link rel="stylesheet" href="/css/app.css">
   <link rel="stylesheet" href="/usuarios/usuarios.css">
 </head>
@@ -50,7 +50,9 @@
         <label>E-mail<input id="email" type="email" placeholder="nome@email.com" required></label>
         <label>Senha<input id="senha" type="password" placeholder="Mínimo de 5 caracteres" minlength="5"
             required></label>
-        <button id="texto-botao" class="botao primario" type="submit"><span>Cadastrar usuário</span><b>→</b></button>
+        <button class="botao primario" type="submit">
+          <span id="texto-botao">Cadastrar usuário</span><b>→</b>
+        </button>
         <button id="cancelar" class="botao botao-secundario cancelar" type="button" hidden>Cancelar edição</button>
       </form>
       <p id="mensagem" class="mensagem">Pronto para gerenciar usuários.</p>
@@ -78,8 +80,11 @@
     </section>
   </main>
 
-  <footer><span>Aula 63 • CRUD de usuários</span><span>Node.js + Express + PostgreSQL</span></footer>
-  <script src="usuarios.js"></script>
+  <footer>
+    <span>Aula 63 • Autenticação</span>
+    <span>Node.js + Express + PostgreSQL + JWT</span>
+  </footer>
+  <script src="/usuarios/usuarios.js"></script>
 </body>
 
 </html>
