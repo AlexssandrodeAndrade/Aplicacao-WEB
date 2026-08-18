@@ -24,30 +24,10 @@
     margin-left: auto;
 }
 
-.voltar {
-    padding: 9px 14px;
-    border: 1px solid var(--borda);
-    border-radius: 6px;
-    color: var(--azul);
-    font-size: 12px;
-    font-weight: bold;
-    transition: 0.2s;
-}
-
-.voltar:hover {
-    background: var(--fundo);
-}
-
 .mensagem {
     padding: 12px 14px;
     border-radius: 6px;
     font-size: 13px;
-}
-
-.mensagem.sucesso {
-    background: #e8f5ef;
-    border: 1px solid #b8dfce;
-    color: #176344;
 }
 
 .mensagem.erro {
@@ -80,9 +60,5 @@
 @media (max-width: 520px) {
     .login-painel {
         padding: 22px;
-    }
-
-    .voltar {
-        padding: 8px 10px;
     }
 }

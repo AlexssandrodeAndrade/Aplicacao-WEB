@@ -4,6 +4,17 @@ const busca = document.querySelector('#busca');
 const mensagem = document.querySelector('#mensagem');
 const cancelar = document.querySelector('#cancelar');
 
+const inputId = document.querySelector('#usuario-id');
+const inputNome = document.querySelector('#nome');
+const inputEmail = document.querySelector('#email');
+const inputSenha = document.querySelector('#senha');
+
+const tituloFormulario = document.querySelector('#titulo-formulario');
+const textoBotao = document.querySelector('#texto-botao');
+
+const totalUsuarios = document.querySelector('#total-usuarios');
+const quantidadeResultados = document.querySelector('#quantidade-resultados');
+
 const usuarioLogado = document.querySelector('#usuario-logado');
 const botaoSair = document.querySelector('#botao-sair');
 
@@ -35,6 +46,12 @@ function mostrarMensagem(texto, erro = false) {
 async function requisicao(url, opcoes = {}) {
     const token = localStorage.getItem('token');
 
+    if (!token) {
+        window.location.replace('/');
+
+        throw new Error('Usuário não autenticado.');
+    }
+
     const resposta = await fetch(url, {
         ...opcoes,
         headers: {
@@ -62,6 +79,60 @@ async function requisicao(url, opcoes = {}) {
     return dados;
 }
 
+function obterIniciais(nome) {
+    return nome
+        .trim()
+        .split(/\s+/)
+        .map((parte) => parte[0])
+        .slice(0, 2)
+        .join('')
+        .toUpperCase();
+}
+
+function criarLinhaUsuario(usuario) {
+    const linha = document.createElement('tr');
+
+    const colunaUsuario = document.createElement('td');
+
+    const avatar = document.createElement('span');
+    avatar.className = 'avatar';
+    avatar.textContent = obterIniciais(usuario.nome);
+
+    const dadosUsuario = document.createElement('span');
+
+    const nome = document.createElement('strong');
+    nome.textContent = usuario.nome;
+
+    const id = document.createElement('small');
+    id.textContent = `ID #${String(usuario.id).padStart(3, '0')}`;
+
+    dadosUsuario.append(nome, id);
+    colunaUsuario.append(avatar, dadosUsuario);
+
+    const colunaEmail = document.createElement('td');
+    colunaEmail.textContent = usuario.email;
+
+    const colunaAcoes = document.createElement('td');
+
+    const botaoEditar = document.createElement('button');
+    botaoEditar.className = 'acao';
+    botaoEditar.dataset.editar = usuario.id;
+    botaoEditar.setAttribute('aria-label', `Editar ${usuario.nome}`);
+    botaoEditar.textContent = '✎';
+
+    const botaoExcluir = document.createElement('button');
+    botaoExcluir.className = 'acao excluir';
+    botaoExcluir.dataset.excluir = usuario.id;
+    botaoExcluir.setAttribute('aria-label', `Excluir ${usuario.nome}`);
+    botaoExcluir.textContent = '×';
+
+    colunaAcoes.append(botaoEditar, botaoExcluir);
+
+    linha.append(colunaUsuario, colunaEmail, colunaAcoes);
+
+    return linha;
+}
+
 function renderizar() {
     const termo = busca.value.trim().toLowerCase();
 
@@ -69,66 +140,29 @@ function renderizar() {
         `${usuario.nome} ${usuario.email}`.toLowerCase().includes(termo),
     );
 
-    document.querySelector('#total-usuarios').textContent = usuarios.length;
+    totalUsuarios.textContent = usuarios.length;
 
-    document.querySelector('#quantidade-resultados').textContent =
-        `${filtrados.length} resultado(s)`;
+    quantidadeResultados.textContent = `${filtrados.length} resultado(s)`;
 
-    lista.innerHTML = filtrados.length
-        ? filtrados
-              .map(
-                  (usuario) => `
-                    <tr>
-                        <td>
-                            <span class="avatar">
-                                ${usuario.nome
-                                    .split(' ')
-                                    .map((parte) => parte[0])
-                                    .slice(0, 2)
-                                    .join('')}
-                            </span>
+    lista.replaceChildren();
 
-                            <span>
-                                <strong>${usuario.nome}</strong>
+    if (filtrados.length === 0) {
+        const linha = document.createElement('tr');
+        const coluna = document.createElement('td');
 
-                                <small>
-                                    ID #${String(usuario.id).padStart(3, '0')}
-                                </small>
-                            </span>
-                        </td>
+        coluna.className = 'vazio';
+        coluna.colSpan = 3;
+        coluna.textContent = 'Nenhum usuário encontrado.';
 
-                        <td>
-                            ${usuario.email}
-                        </td>
+        linha.append(coluna);
+        lista.append(linha);
 
-                        <td>
-                            <button
-                                class="acao"
-                                data-editar="${usuario.id}"
-                                aria-label="Editar ${usuario.nome}"
-                            >
-                                ✎
-                            </button>
+        return;
+    }
 
-                            <button
-                                class="acao excluir"
-                                data-excluir="${usuario.id}"
-                                aria-label="Excluir ${usuario.nome}"
-                            >
-                                ×
-                            </button>
-                        </td>
-                    </tr>
-                `,
-              )
-              .join('')
-        : `
-            <tr>
-                <td class="vazio" colspan="3">
-                    Nenhum usuário encontrado.
-                </td>
-            </tr>
-        `;
+    filtrados.forEach((usuario) => {
+        lista.append(criarLinhaUsuario(usuario));
+    });
 }
 
 async function carregarUsuarios() {
@@ -144,13 +178,10 @@ async function carregarUsuarios() {
 function limparFormulario() {
     form.reset();
 
-    document.querySelector('#usuario-id').value = '';
-
-    document.querySelector('#titulo-formulario').textContent = 'Novo usuário';
-
-    document.querySelector('#texto-botao').textContent = 'Cadastrar usuário';
-
-    document.querySelector('#senha').required = true;
+    inputId.value = '';
+    tituloFormulario.textContent = 'Novo usuário';
+    textoBotao.textContent = 'Cadastrar usuário';
+    inputSenha.required = true;
 
     cancelar.hidden = true;
 }
@@ -158,12 +189,12 @@ function limparFormulario() {
 form.addEventListener('submit', async (evento) => {
     evento.preventDefault();
 
-    const id = document.querySelector('#usuario-id').value;
+    const id = inputId.value;
 
     const corpo = {
-        nome: document.querySelector('#nome').value.trim(),
-        email: document.querySelector('#email').value.trim(),
-        senha: document.querySelector('#senha').value,
+        nome: inputNome.value.trim(),
+        email: inputEmail.value.trim(),
+        senha: inputSenha.value,
     };
 
     try {
@@ -195,16 +226,15 @@ lista.addEventListener('click', async (evento) => {
     if (idEditar) {
         const usuario = usuarios.find((item) => item.id === Number(idEditar));
 
-        document.querySelector('#usuario-id').value = usuario.id;
-        document.querySelector('#nome').value = usuario.nome;
-        document.querySelector('#email').value = usuario.email;
-        document.querySelector('#senha').value = '';
+        inputId.value = usuario.id;
+        inputNome.value = usuario.nome;
+        inputEmail.value = usuario.email;
+        inputSenha.value = '';
 
-        document.querySelector('#senha').required = true;
+        inputSenha.required = true;
 
-        document.querySelector('#titulo-formulario').textContent = 'Editar usuário';
-
-        document.querySelector('#texto-botao').textContent = 'Salvar alterações';
+        tituloFormulario.textContent = 'Editar usuário';
+        textoBotao.textContent = 'Salvar alterações';
 
         cancelar.hidden = false;
 
@@ -238,4 +268,6 @@ busca.addEventListener('input', renderizar);
 
 cancelar.addEventListener('click', limparFormulario);
 
-carregarUsuarios();
+if (token) {
+    carregarUsuarios();
+}
