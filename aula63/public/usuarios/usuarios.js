@@ -6,6 +6,12 @@ const statusApi = document.querySelector('#status-api');
 const cancelar = document.querySelector('#cancelar');
 let usuarios = [];
 
+const token = localStorage.getItem('token');
+
+if (!token) {
+    window.location.replace('/login/login.html');
+}
+
 function mostrarMensagem(texto, erro = false) {
     mensagem.textContent = texto;
     mensagem.style.color = erro ? '#b84e4e' : '#1f8a70';
@@ -24,6 +30,15 @@ async function requisicao(url, opcoes = {}) {
     });
 
     const dados = await resposta.json();
+
+    if (resposta.status === 401) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('usuarioEmail');
+
+        window.location.replace('/login/login.html');
+
+        throw new Error('Sessão inválida.');
+    }
 
     if (!resposta.ok) {
         throw new Error(dados.mensagem || 'Erro na requisição.');

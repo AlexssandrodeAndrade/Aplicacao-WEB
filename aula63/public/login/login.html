@@ -5,50 +5,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login</title>
+    <title>Login | Aula 63</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/app.css">
+
+    <link rel="stylesheet" href="/login/login.css">
 </head>
 
-<body class="bg-light">
+<body>
 
-    <main class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="card shadow-sm" style="width: 100%; max-width: 420px;">
-            <div class="card-body p-4">
+    <header class="topbar">
+        <div class="marca">
+            <b>63</b>
 
-                <h1 class="h3 text-center mb-4">
-                    Login
-                </h1>
-
-                <form id="form-login">
-
-                    <div class="mb-3">
-                        <label for="email" class="form-label">
-                            E-mail
-                        </label>
-
-                        <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="senha" class="form-label">
-                            Senha
-                        </label>
-
-                        <input type="password" class="form-control" id="senha" name="senha" required>
-                    </div>
-
-                    <div id="mensagem" class="alert d-none" role="alert"></div>
-
-                    <button type="submit" class="btn btn-primary w-100">
-                        Entrar
-                    </button>
-
-                </form>
-
-            </div>
+            <span>
+                <strong>Aula 63</strong>
+                <small>Autenticação com JWT</small>
+            </span>
         </div>
+
+        <a href="/" class="voltar">
+            ← Início
+        </a>
+    </header>
+
+    <section class="hero">
+        <div>
+            <small>APLICAÇÕES WEB • SENAI</small>
+
+            <h1>Login</h1>
+
+            <p>
+                Entre com suas credenciais para acessar
+                as funcionalidades protegidas da aplicação.
+            </p>
+        </div>
+    </section>
+
+    <main class="conteudo login-conteudo">
+
+        <section class="painel login-painel">
+
+            <div class="titulo">
+                <b>01</b>
+
+                <span>
+                    <h2>Autenticação</h2>
+
+                    <small>
+                        Informe seu e-mail e senha
+                    </small>
+                </span>
+            </div>
+
+            <form id="form-login">
+
+                <label for="email">
+                    E-mail
+
+                    <input type="email" id="email" name="email" placeholder="nome@email.com" autocomplete="email"
+                        required>
+                </label>
+
+                <label for="senha">
+                    Senha
+
+                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha"
+                        autocomplete="current-password" required>
+                </label>
+
+                <div id="mensagem" class="mensagem" hidden></div>
+
+                <button type="submit" class="botao botao-login">
+                    Entrar
+                    <span>→</span>
+                </button>
+
+            </form>
+
+            <div class="login-info">
+                <strong>JWT</strong>
+
+                <p>
+                    Após o login, o token será utilizado
+                    para acessar as rotas protegidas.
+                </p>
+            </div>
+
+        </section>
+
     </main>
+
+    <footer>
+        <span>Aula 63 • Autenticação</span>
+
+        <span>
+            Node.js + Express + PostgreSQL + JWT
+        </span>
+    </footer>
 
     <script src="login.js"></script>
 

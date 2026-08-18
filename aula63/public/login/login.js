@@ -3,10 +3,16 @@ const inputEmail = document.querySelector('#email');
 const inputSenha = document.querySelector('#senha');
 const mensagem = document.querySelector('#mensagem');
 
+// function mostrarMensagem(texto, tipo) {
+//     mensagem.textContent = texto;
+
+//     mensagem.className = `alert alert-${tipo}`;
+// }
+
 function mostrarMensagem(texto, tipo) {
     mensagem.textContent = texto;
-
-    mensagem.className = `alert alert-${tipo}`;
+    mensagem.hidden = false;
+    mensagem.className = `mensagem ${tipo}`;
 }
 
 formLogin.addEventListener('submit', async (event) => {
@@ -32,19 +38,20 @@ formLogin.addEventListener('submit', async (event) => {
         const dados = await resposta.json();
 
         if (!resposta.ok) {
-            mostrarMensagem(dados.mensagem || 'Não foi possível realizar o login.', 'danger');
+            mostrarMensagem(dados.mensagem || 'Não foi possível realizar o login.', 'erro');
 
             return;
         }
 
         localStorage.setItem('token', dados.token);
+        localStorage.setItem('usuarioEmail', email);
 
-        mostrarMensagem('Login realizado com sucesso!', 'success');
+        mostrarMensagem('Login realizado com sucesso!', 'sucesso');
 
         window.location.href = '/';
     } catch (erro) {
         console.error(erro);
 
-        mostrarMensagem('Erro ao conectar com o servidor.', 'danger');
+        mostrarMensagem('Erro ao conectar com o servidor.', 'erro');
     }
 });
