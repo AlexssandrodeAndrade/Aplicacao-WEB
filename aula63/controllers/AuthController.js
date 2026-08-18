@@ -45,6 +45,10 @@ class AuthController {
 
             return res.status(200).json({
                 token: token,
+                usuario: {
+                    id: usuario.id,
+                    email: usuario.email,
+                },
             });
         } catch (erro) {
             console.error(erro);

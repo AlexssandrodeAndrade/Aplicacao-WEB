@@ -138,6 +138,14 @@ class UsuarioController {
                 });
             }
 
+            const idUsuario = Number(id);
+
+            if (req.usuario.id === idUsuario) {
+                return res.status(403).json({
+                    mensagem: 'Você não pode excluir o próprio usuário.',
+                });
+            }
+
             const usuarioExcluido = await Usuario.excluir(Number(id));
 
             if (!usuarioExcluido) {

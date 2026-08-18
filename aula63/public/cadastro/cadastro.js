@@ -4,7 +4,8 @@ if (token) {
     window.location.replace('/usuarios/usuarios.html');
 }
 
-const formLogin = document.querySelector('#form-login');
+const form = document.querySelector('#form-cadastro');
+const inputNome = document.querySelector('#nome');
 const inputEmail = document.querySelector('#email');
 const inputSenha = document.querySelector('#senha');
 const mensagem = document.querySelector('#mensagem');
@@ -15,19 +16,21 @@ function mostrarMensagem(texto, tipo) {
     mensagem.className = `mensagem ${tipo}`;
 }
 
-formLogin.addEventListener('submit', async (event) => {
-    event.preventDefault();
+form.addEventListener('submit', async (evento) => {
+    evento.preventDefault();
 
+    const nome = inputNome.value.trim();
     const email = inputEmail.value.trim();
     const senha = inputSenha.value;
 
     try {
-        const resposta = await fetch('/login', {
+        const resposta = await fetch('/usuarios', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                nome,
                 email,
                 senha,
             }),
@@ -36,15 +39,20 @@ formLogin.addEventListener('submit', async (event) => {
         const dados = await resposta.json();
 
         if (!resposta.ok) {
-            mostrarMensagem(dados.mensagem || 'Não foi possível realizar o login.', 'erro');
+            mostrarMensagem(dados.mensagem || 'Não foi possível cadastrar o usuário.', 'erro');
 
             return;
         }
 
-        localStorage.setItem('token', dados.token);
-        localStorage.setItem('usuarioEmail', email);
+        mostrarMensagem(dados.mensagem || 'Usuário cadastrado com sucesso!', 'sucesso');
 
-        window.location.href = '/usuarios/usuarios.html';
+        form.reset();
+
+        setTimeout(() => {
+            window.location.href = `/login/login.html?email=${encodeURIComponent(
+                email.toLowerCase(),
+            )}`;
+        }, 800);
     } catch (erro) {
         console.error(erro);
 

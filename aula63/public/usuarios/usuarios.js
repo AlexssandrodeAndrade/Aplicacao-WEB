@@ -18,13 +18,24 @@ const quantidadeResultados = document.querySelector('#quantidade-resultados');
 const usuarioLogado = document.querySelector('#usuario-logado');
 const botaoSair = document.querySelector('#botao-sair');
 
+const modalExcluir = document.querySelector('#modal-excluir');
+const modalExcluirTexto = document.querySelector('#modal-excluir-texto');
+
+const cancelarExclusao = document.querySelector('#cancelar-exclusao');
+
+const confirmarExclusao = document.querySelector('#confirmar-exclusao');
+
 let usuarios = [];
+let usuarioParaExcluir = null;
 
 const token = localStorage.getItem('token');
+
+const usuarioId = Number(localStorage.getItem('usuarioId'));
+
 const usuarioEmail = localStorage.getItem('usuarioEmail');
 
 if (!token) {
-    window.location.replace('/');
+    window.location.replace('/login/login.html');
 } else {
     usuarioLogado.textContent = usuarioEmail
         ? `Logado como ${usuarioEmail}`
@@ -33,9 +44,10 @@ if (!token) {
 
 botaoSair.addEventListener('click', () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('usuarioId');
     localStorage.removeItem('usuarioEmail');
 
-    window.location.replace('/');
+    window.location.replace('/login/login.html');
 });
 
 function mostrarMensagem(texto, erro = false) {
@@ -47,7 +59,7 @@ async function requisicao(url, opcoes = {}) {
     const token = localStorage.getItem('token');
 
     if (!token) {
-        window.location.replace('/');
+        window.location.replace('/login/login.html');
 
         throw new Error('Usuário não autenticado.');
     }
@@ -65,9 +77,10 @@ async function requisicao(url, opcoes = {}) {
 
     if (resposta.status === 401) {
         localStorage.removeItem('token');
+        localStorage.removeItem('usuarioId');
         localStorage.removeItem('usuarioEmail');
 
-        window.location.replace('/');
+        window.location.replace('/login/login.html');
 
         throw new Error('Sessão inválida.');
     }
@@ -122,9 +135,21 @@ function criarLinhaUsuario(usuario) {
 
     const botaoExcluir = document.createElement('button');
     botaoExcluir.className = 'acao excluir';
-    botaoExcluir.dataset.excluir = usuario.id;
-    botaoExcluir.setAttribute('aria-label', `Excluir ${usuario.nome}`);
     botaoExcluir.textContent = '×';
+
+    const proprioUsuario = usuario.id === usuarioId;
+
+    if (proprioUsuario) {
+        botaoExcluir.disabled = true;
+
+        botaoExcluir.setAttribute('aria-label', 'Não é possível excluir o próprio usuário');
+
+        botaoExcluir.title = 'Você não pode excluir o próprio usuário.';
+    } else {
+        botaoExcluir.dataset.excluir = usuario.id;
+
+        botaoExcluir.setAttribute('aria-label', `Excluir ${usuario.nome}`);
+    }
 
     colunaAcoes.append(botaoEditar, botaoExcluir);
 
@@ -244,23 +269,39 @@ lista.addEventListener('click', async (evento) => {
     }
 
     if (idExcluir) {
-        const usuario = usuarios.find((item) => item.id === Number(idExcluir));
+        usuarioParaExcluir = usuarios.find((item) => item.id === Number(idExcluir));
 
-        if (!confirm(`Deseja excluir ${usuario.nome}?`)) {
-            return;
-        }
+        modalExcluirTexto.textContent = `Deseja realmente excluir ${usuarioParaExcluir.nome}?`;
 
-        try {
-            const dados = await requisicao(`/usuarios/${idExcluir}`, {
-                method: 'DELETE',
-            });
+        modalExcluir.showModal();
+    }
+});
 
-            mostrarMensagem(dados.mensagem);
+cancelarExclusao.addEventListener('click', () => {
+    usuarioParaExcluir = null;
 
-            await carregarUsuarios();
-        } catch (erro) {
-            mostrarMensagem(erro.message, true);
-        }
+    modalExcluir.close();
+});
+
+confirmarExclusao.addEventListener('click', async () => {
+    if (!usuarioParaExcluir) {
+        return;
+    }
+
+    try {
+        const dados = await requisicao(`/usuarios/${usuarioParaExcluir.id}`, {
+            method: 'DELETE',
+        });
+
+        mostrarMensagem(dados.mensagem);
+
+        usuarioParaExcluir = null;
+
+        modalExcluir.close();
+
+        await carregarUsuarios();
+    } catch (erro) {
+        mostrarMensagem(erro.message, true);
     }
 });
 

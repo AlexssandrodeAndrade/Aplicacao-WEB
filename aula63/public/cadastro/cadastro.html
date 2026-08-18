@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cadastro | Aula 63</title>
+
+    <link rel="stylesheet" href="/cadastro/cadastro.css">
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="marca">
+            <b>63</b>
+
+            <span>
+                <strong>Aula 63</strong>
+                <small>Autenticação com JWT</small>
+            </span>
+        </div>
+
+        <a href="/" class="voltar">
+            ← Início
+        </a>
+    </header>
+
+    <section class="hero">
+        <div>
+            <small>APLICAÇÕES WEB • SENAI</small>
+
+            <h1>Cadastro</h1>
+
+            <p>
+                Crie um usuário para depois acessar
+                as funcionalidades protegidas da aplicação.
+            </p>
+        </div>
+    </section>
+
+    <main class="conteudo cadastro-conteudo">
+
+        <section class="painel cadastro-painel">
+
+            <div class="titulo">
+                <b>01</b>
+
+                <span>
+                    <h2>Novo usuário</h2>
+                    <small>Preencha os dados abaixo</small>
+                </span>
+            </div>
+
+            <form id="form-cadastro">
+
+                <label for="nome">
+                    Nome completo
+
+                    <input type="text" id="nome" name="nome" placeholder="Ex.: Maria da Silva" required>
+                </label>
+
+                <label for="email">
+                    E-mail
+
+                    <input type="email" id="email" name="email" placeholder="nome@email.com" autocomplete="email"
+                        required>
+                </label>
+
+                <label for="senha">
+                    Senha
+
+                    <input type="password" id="senha" name="senha" placeholder="Mínimo de 5 caracteres" minlength="5"
+                        autocomplete="new-password" required>
+                </label>
+
+                <div id="mensagem" class="mensagem" hidden></div>
+
+                <button type="submit" class="botao botao-cadastro">
+                    Cadastrar usuário
+                    <span>→</span>
+                </button>
+
+            </form>
+
+            <div class="cadastro-info">
+                <strong>PRIMEIRO ACESSO</strong>
+
+                <p>
+                    Depois do cadastro você poderá utilizar
+                    seu e-mail e senha para fazer login.
+                </p>
+            </div>
+
+            <div class="login-link">
+                <span>Já possui usuário?</span>
+
+                <a href="/login/login.html">
+                    Fazer login
+                </a>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <span>Aula 63 • Cadastro</span>
+        <span>Node.js + Express + PostgreSQL + JWT</span>
+    </footer>
+
+    <script src="/cadastro/cadastro.js"></script>
+
+</body>
+
+</html>

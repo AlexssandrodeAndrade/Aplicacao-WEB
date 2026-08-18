@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Usuários | Aula 63</title>
-  <link rel="stylesheet" href="/css/app.css">
   <link rel="stylesheet" href="/usuarios/usuarios.css">
 </head>
 
@@ -37,6 +36,7 @@
       <p>Cadastre, encontre e mantenha os usuários da aplicação em um só lugar.</p>
     </div>
     <div class="contador"><strong id="total-usuarios">0</strong><span>usuários cadastrados</span></div>
+    <div id="mensagem" class="mensagem-hero" hidden></div>
   </section>
 
   <main class="conteudo usuarios-conteudo">
@@ -55,7 +55,6 @@
         </button>
         <button id="cancelar" class="botao botao-secundario cancelar" type="button" hidden>Cancelar edição</button>
       </form>
-      <p id="mensagem" class="mensagem">Pronto para gerenciar usuários.</p>
     </section>
 
     <section class="painel lista-painel">
@@ -84,6 +83,35 @@
     <span>Aula 63 • Autenticação</span>
     <span>Node.js + Express + PostgreSQL + JWT</span>
   </footer>
+  <dialog id="modal-excluir" class="modal-excluir">
+
+    <div class="modal-conteudo">
+
+      <div class="modal-icone">
+        !
+      </div>
+
+      <div>
+        <h2>Excluir usuário</h2>
+
+        <p id="modal-excluir-texto">
+          Deseja realmente excluir este usuário?
+        </p>
+      </div>
+
+      <div class="modal-acoes">
+        <button id="cancelar-exclusao" class="botao botao-secundario" type="button">
+          Cancelar
+        </button>
+
+        <button id="confirmar-exclusao" class="botao botao-excluir" type="button">
+          Excluir usuário
+        </button>
+      </div>
+
+    </div>
+
+  </dialog>
   <script src="/usuarios/usuarios.js"></script>
 </body>
 
