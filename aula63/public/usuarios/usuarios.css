@@ -1,1 +1,194 @@
-:root{--azul:#122c4c;--verde:#1f8a70;--fundo:#f3f5f7;--texto:#172638;--cinza:#68778a;--borda:#dce2e8}*{box-sizing:border-box}body{margin:0;background:var(--fundo);color:var(--texto);font-family:Arial,sans-serif}button,input{font:inherit}.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;background:#fff;border-bottom:1px solid var(--borda)}.marca{display:flex;align-items:center;gap:12px}.marca>b{display:grid;place-items:center;width:40px;height:40px;border-radius:10px;background:var(--azul);color:#fff}.marca strong,.marca small{display:block}.marca small,.titulo small{color:var(--cinza);font-size:12px}.status{color:var(--verde);font-size:13px;font-weight:bold}.status.erro{color:#b84e4e}.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;padding:52px 5vw 44px;background:var(--azul);color:#fff}.hero>div>small{color:#8fb0d2;font-weight:bold;letter-spacing:.15em}.hero h1{margin:15px 0 8px;font:500 52px Georgia,serif}.hero p{margin:0;color:#c8d6e5}.contador{padding-left:28px;border-left:1px solid #46617f}.contador strong,.contador span{display:block}.contador strong{font:36px Georgia,serif}.contador span{color:#a9bed3;font-size:12px}.conteudo{display:grid;grid-template-columns:360px 1fr;gap:22px;max-width:1280px;margin:auto;padding:34px 3vw 50px}.painel{background:#fff;border:1px solid var(--borda);border-radius:10px;box-shadow:0 8px 30px #1f2e420d}.formulario-painel{padding:26px;align-self:start}.titulo{display:flex;align-items:center;gap:12px}.titulo>b{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#e8eef5;color:#285888;font-size:11px}.titulo h2{margin:0;font:600 21px Georgia,serif}.titulo small{display:block;margin-top:4px}form{display:grid;gap:16px;margin-top:28px}label{font-size:12px;font-weight:bold;color:#354457}input{width:100%;margin-top:7px;padding:12px 13px;border:1px solid #cfd7df;border-radius:6px;outline:none}input:focus{border-color:#285888;box-shadow:0 0 0 3px #dfeaf5}.primario{display:flex;justify-content:space-between;margin-top:4px;padding:13px 15px;border:0;border-radius:6px;background:var(--azul);color:#fff;font-size:13px;font-weight:bold;cursor:pointer}.cancelar{border:0;background:transparent;color:var(--cinza);cursor:pointer}.mensagem{margin-top:20px;padding-top:17px;border-top:1px solid #edf0f3;color:var(--cinza);font-size:11px}.lista-painel{overflow:hidden}.lista-cabecalho{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:25px;border-bottom:1px solid var(--borda)}.busca{width:245px;margin:0}.tabela-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse}th{padding:14px 20px;background:#f8f9fa;color:#768496;font-size:10px;text-align:left}td{padding:17px 20px;border-top:1px solid #edf0f3;color:#4f6071;font-size:13px}td:first-child{color:var(--texto)}td strong,td small{display:block}td small{margin-top:3px;color:#95a0ad;font-size:10px}.avatar{display:inline-grid;place-items:center;width:38px;height:38px;margin-right:10px;border-radius:50%;background:#dfe9f3;color:#285888;font-size:11px;font-weight:bold;vertical-align:middle}.acao{width:32px;height:32px;margin-right:6px;border:1px solid #d7dde4;border-radius:6px;background:#fff;cursor:pointer}.excluir{color:#b84e4e}.vazio{text-align:center;padding:55px}footer{display:flex;justify-content:space-between;padding:22px 5vw;border-top:1px solid var(--borda);color:#8995a2;font-size:11px}@media(max-width:800px){.conteudo{grid-template-columns:1fr}.hero{align-items:flex-start;flex-direction:column}.contador{padding-left:0;border:0}.lista-cabecalho{align-items:flex-start;flex-direction:column}.busca{width:100%}}@media(max-width:520px){.topbar{padding:0 18px}.marca small{display:none}.hero{padding:38px 20px}.hero h1{font-size:42px}.conteudo{padding:20px 14px 36px}.formulario-painel{padding:20px}.lista-cabecalho{padding:20px}th,td{padding:14px 12px}footer{flex-direction:column;gap:8px}}
+.usuarios-conteudo {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 22px;
+}
+
+.contador {
+    padding-left: 28px;
+    border-left: 1px solid #46617f;
+}
+
+.contador strong,
+.contador span {
+    display: block;
+}
+
+.contador strong {
+    font: 36px Georgia, serif;
+}
+
+.contador span {
+    color: #a9bed3;
+    font-size: 12px;
+}
+
+/* FORMULÁRIO */
+
+.formulario-painel {
+    align-self: start;
+    padding: 26px;
+}
+
+.formulario-painel form {
+    display: grid;
+    gap: 16px;
+    margin-top: 28px;
+}
+
+.primario {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 4px;
+}
+
+.cancelar {
+    width: 100%;
+}
+
+.mensagem {
+    margin-top: 20px;
+    padding-top: 17px;
+    border-top: 1px solid #edf0f3;
+    color: var(--cinza);
+    font-size: 11px;
+}
+
+/* LISTA */
+
+.lista-painel {
+    overflow: hidden;
+}
+
+.lista-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 25px;
+    border-bottom: 1px solid var(--borda);
+}
+
+.busca {
+    width: 245px;
+    margin: 0;
+}
+
+/* TABELA */
+
+.tabela-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    padding: 14px 20px;
+    background: #f8f9fa;
+    color: #768496;
+    font-size: 10px;
+    text-align: left;
+}
+
+td {
+    padding: 17px 20px;
+    border-top: 1px solid #edf0f3;
+    color: #4f6071;
+    font-size: 13px;
+}
+
+td:first-child {
+    color: var(--texto);
+}
+
+td strong,
+td small {
+    display: block;
+}
+
+td small {
+    margin-top: 3px;
+    color: #95a0ad;
+    font-size: 10px;
+}
+
+/* AVATAR */
+
+.avatar {
+    display: inline-grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background: #dfe9f3;
+    color: #285888;
+    font-size: 11px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+/* AÇÕES */
+
+.acao {
+    width: 32px;
+    height: 32px;
+    margin-right: 6px;
+    border: 1px solid #d7dde4;
+    border-radius: 6px;
+    background: var(--branco);
+    cursor: pointer;
+}
+
+.acao:hover {
+    background: var(--fundo);
+}
+
+.excluir {
+    color: #b84e4e;
+}
+
+.vazio {
+    padding: 55px;
+    text-align: center;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 800px) {
+    .usuarios-conteudo {
+        grid-template-columns: 1fr;
+    }
+
+    .contador {
+        padding-left: 0;
+        border-left: 0;
+    }
+
+    .lista-cabecalho {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .busca {
+        width: 100%;
+    }
+}
+
+@media (max-width: 520px) {
+    .formulario-painel {
+        padding: 20px;
+    }
+
+    .lista-cabecalho {
+        padding: 20px;
+    }
+
+    th,
+    td {
+        padding: 14px 12px;
+    }
+}

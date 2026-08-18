@@ -8,6 +8,8 @@
     <title>Aula 63 | Autenticação</title>
 
     <link rel="stylesheet" href="/css/app.css">
+
+    <link rel="stylesheet" href="/login/login.css">
 </head>
 
 <body>
@@ -21,15 +23,6 @@
                 <small>Autenticação com JWT</small>
             </span>
         </div>
-        <div class="sessao" id="area-sessao">
-            <span id="status-sessao">
-                Verificando sessão...
-            </span>
-
-            <button id="botao-sair" class="botao-sair" type="button" hidden>
-                Sair
-            </button>
-        </div>
     </header>
 
     <section class="hero">
@@ -39,61 +32,74 @@
             <h1>Autenticação</h1>
 
             <p>
-                Gerenciamento de usuários com autenticação utilizando JWT.
+                Entre com suas credenciais para acessar
+                as funcionalidades protegidas da aplicação.
             </p>
         </div>
     </section>
 
-    <main class="conteudo">
+    <main class="conteudo login-conteudo">
 
-        <section class="menu">
+        <section class="painel login-painel">
 
-            <article class="painel menu-item">
-                <div class="titulo">
-                    <b>01</b>
+            <div class="titulo">
+                <b>01</b>
 
-                    <span>
-                        <h2>Login</h2>
-                        <small>Autenticação de usuários</small>
-                    </span>
-                </div>
+                <span>
+                    <h2>Login</h2>
+
+                    <small>
+                        Informe seu e-mail e senha
+                    </small>
+                </span>
+            </div>
+
+            <form id="form-login">
+
+                <label for="email">
+                    E-mail
+
+                    <input type="email" id="email" name="email" placeholder="nome@email.com" autocomplete="email"
+                        required>
+                </label>
+
+                <label for="senha">
+                    Senha
+
+                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha"
+                        autocomplete="current-password" required>
+                </label>
+
+                <div id="mensagem" class="mensagem" hidden></div>
+
+                <button type="submit" class="botao botao-login">
+                    Entrar
+                    <span>→</span>
+                </button>
+
+            </form>
+
+            <div class="login-info">
+                <strong>JWT</strong>
 
                 <p>
-                    Entre na aplicação para gerar seu token
-                    de autenticação.
+                    Após o login, o token será utilizado
+                    para acessar as rotas protegidas.
                 </p>
-
-                <a id="botao-login" href="/login/login.html" class="botao">
-                    Acessar login →
-                </a>
-            </article>
-
-            <article class="painel menu-item">
-                <div class="titulo">
-                    <b>02</b>
-
-                    <span>
-                        <h2>Usuários</h2>
-                        <small>Gerenciamento de usuários</small>
-                    </span>
-                </div>
-
-                <p>
-                    Cadastre, consulte, altere e exclua
-                    usuários da aplicação.
-                </p>
-                <a id="botao-usuarios" href="/usuarios/usuarios.html" class="botao" hidden>
-                    Gerenciar usuários →
-                </a>
-            </article>
+            </div>
 
         </section>
 
     </main>
 
     <footer>
-        <span>Aula 63 • Autenticação</span>
-        <span>Node.js + Express + PostgreSQL + JWT</span>
+        <span>
+            Aula 63 • Autenticação
+        </span>
+
+        <span>
+            Node.js + Express + PostgreSQL + JWT
+        </span>
     </footer>
     <script src="/js/app.js"></script>
 </body>

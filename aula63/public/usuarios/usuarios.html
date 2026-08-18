@@ -5,16 +5,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Usuários</title>
-  <link rel="stylesheet" href="usuarios.css">
-
+  <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="/usuarios/usuarios.css">
 </head>
 
 <body>
   <header class="topbar">
-    <div class="marca"><b>U</b><span><strong>Aula 63</strong><small>Gerenciamento de usuários</small></span></div>
-    <a href="/" class="voltar">
-      ← Início
-    </a>
+    <div class="marca">
+      <b>63</b>
+
+      <span>
+        <strong>Aula 63</strong>
+        <small>Autenticação com JWT</small>
+      </span>
+    </div>
+
+    <div class="sessao autenticado">
+      <span id="usuario-logado">
+        Usuário autenticado
+      </span>
+
+      <button id="botao-sair" class="botao-sair" type="button">
+        Sair
+      </button>
+    </div>
   </header>
 
   <section class="hero">
@@ -25,7 +39,7 @@
     <div class="contador"><strong id="total-usuarios">0</strong><span>usuários cadastrados</span></div>
   </section>
 
-  <main class="conteudo">
+  <main class="conteudo usuarios-conteudo">
     <section class="painel formulario-painel">
       <div class="titulo"><b>01</b><span>
           <h2 id="titulo-formulario">Novo usuário</h2><small>Preencha os dados abaixo</small>
@@ -36,8 +50,8 @@
         <label>E-mail<input id="email" type="email" placeholder="nome@email.com" required></label>
         <label>Senha<input id="senha" type="password" placeholder="Mínimo de 5 caracteres" minlength="5"
             required></label>
-        <button class="primario" type="submit"><span id="texto-botao">Cadastrar usuário</span><b>→</b></button>
-        <button id="cancelar" class="cancelar" type="button" hidden>Cancelar edição</button>
+        <button id="texto-botao" class="botao primario" type="submit"><span>Cadastrar usuário</span><b>→</b></button>
+        <button id="cancelar" class="botao botao-secundario cancelar" type="button" hidden>Cancelar edição</button>
       </form>
       <p id="mensagem" class="mensagem">Pronto para gerenciar usuários.</p>
     </section>

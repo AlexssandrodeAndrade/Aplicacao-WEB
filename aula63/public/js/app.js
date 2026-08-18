@@ -1,31 +1,47 @@
-const token = localStorage.getItem('token');
-const email = localStorage.getItem('usuarioEmail');
+const formLogin = document.querySelector('#form-login');
+const inputEmail = document.querySelector('#email');
+const inputSenha = document.querySelector('#senha');
+const mensagem = document.querySelector('#mensagem');
 
-const areaSessao = document.querySelector('#area-sessao');
-const statusSessao = document.querySelector('#status-sessao');
-const botaoSair = document.querySelector('#botao-sair');
-const botaoLogin = document.querySelector('#botao-login');
-const botaoUsuarios = document.querySelector('#botao-usuarios');
-
-if (token) {
-    statusSessao.textContent = email ? `Logado como ${email}` : 'Usuário autenticado';
-
-    areaSessao.classList.add('autenticado');
-
-    botaoLogin.hidden = true;
-    botaoUsuarios.hidden = false;
-    botaoSair.hidden = false;
-} else {
-    statusSessao.textContent = 'Não autenticado';
-
-    botaoLogin.hidden = false;
-    botaoUsuarios.hidden = true;
-    botaoSair.hidden = true;
+function mostrarMensagem(texto, tipo) {
+    mensagem.textContent = texto;
+    mensagem.hidden = false;
+    mensagem.className = `mensagem ${tipo}`;
 }
 
-botaoSair.addEventListener('click', () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('usuarioEmail');
+formLogin.addEventListener('submit', async (event) => {
+    event.preventDefault();
 
-    window.location.href = '/login/login.html';
+    const email = inputEmail.value.trim();
+    const senha = inputSenha.value;
+
+    try {
+        const resposta = await fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email,
+                senha,
+            }),
+        });
+
+        const dados = await resposta.json();
+
+        if (!resposta.ok) {
+            mostrarMensagem(dados.mensagem || 'Não foi possível realizar o login.', 'erro');
+
+            return;
+        }
+
+        localStorage.setItem('token', dados.token);
+        localStorage.setItem('usuarioEmail', email);
+
+        window.location.href = '/usuarios/usuarios.html';
+    } catch (erro) {
+        console.error(erro);
+
+        mostrarMensagem('Erro ao conectar com o servidor.', 'erro');
+    }
 });
