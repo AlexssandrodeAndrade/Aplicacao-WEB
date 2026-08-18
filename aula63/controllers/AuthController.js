@@ -8,7 +8,18 @@ class AuthController {
         try {
             const { email, senha } = req.body;
 
-            const usuario = await Usuario.buscarPorEmail(email);
+            if (
+                typeof email !== 'string' ||
+                email.trim() === '' ||
+                typeof senha !== 'string' ||
+                senha === ''
+            ) {
+                return res.status(400).json({
+                    mensagem: 'Informe e-mail e senha.',
+                });
+            }
+
+            const usuario = await Usuario.buscarPorEmail(email.trim().toLowerCase());
 
             if (!usuario) {
                 return res.status(401).json({
