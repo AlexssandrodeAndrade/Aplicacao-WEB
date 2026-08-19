@@ -34,6 +34,17 @@ class Usuario {
         return resultado.rows[0];
     }
 
+    static async buscarPorId(id) {
+        const resultado = await pool.query(
+            `SELECT id, nome, email
+         FROM usuarios
+         WHERE id = $1`,
+            [id],
+        );
+
+        return resultado.rows[0];
+    }
+
     async cadastrar() {
         const resultado = await pool.query(
             `INSERT INTO usuarios (nome, email, senha)

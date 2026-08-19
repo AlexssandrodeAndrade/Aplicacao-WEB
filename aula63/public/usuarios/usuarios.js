@@ -225,6 +225,12 @@ form.addEventListener('submit', async (evento) => {
 
         window.mostrarMensagem(dados.mensagem, 'sucesso');
 
+        if (id && Number(id) === usuarioId) {
+            localStorage.setItem('usuarioEmail', dados.usuario.email);
+
+            usuarioLogado.textContent = `Logado como ${dados.usuario.email}`;
+        }
+
         limparFormulario();
 
         await carregarUsuarios();
