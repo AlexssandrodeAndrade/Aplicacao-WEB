@@ -48,14 +48,6 @@
     width: 100%;
 }
 
-.mensagem {
-    margin-top: 20px;
-    padding-top: 17px;
-    border-top: 1px solid #edf0f3;
-    color: var(--cinza);
-    font-size: 11px;
-}
-
 /* LISTA */
 
 .lista-painel {

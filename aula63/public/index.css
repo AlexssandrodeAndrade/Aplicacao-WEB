@@ -246,6 +246,160 @@ input:focus {
     justify-content: space-between;
 }
 
+/* MENSAGENS GLOBAIS */
+
+.container-mensagens {
+    position: fixed;
+    top: 50px;
+    left: 50%;
+    z-index: 9999;
+
+    display: grid;
+    gap: 10px;
+
+    width: min(440px, calc(100% - 32px));
+
+    transform: translateX(-50%);
+
+    pointer-events: none;
+}
+
+.mensagem-global {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 13px 15px;
+
+    border: 1px solid transparent;
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    box-shadow: 0 10px 30px rgb(0 0 0 / 15%);
+
+    animation: mensagem-entrada 0.2s ease-out;
+
+    pointer-events: auto;
+}
+
+.mensagem-global::before {
+    display: grid;
+    place-items: center;
+
+    flex: 0 0 24px;
+
+    width: 24px;
+    height: 24px;
+
+    border-radius: 50%;
+
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.mensagem-global > span {
+    flex: 1;
+}
+
+/* SUCESSO */
+
+.mensagem-global.sucesso {
+    background: #e8f5ef;
+    border-color: #b8dfce;
+    color: #176344;
+}
+
+.mensagem-global.sucesso::before {
+    content: '✓';
+
+    background: #176344;
+    color: #ffffff;
+}
+
+/* ERRO */
+
+.mensagem-global.erro {
+    background: #fcebea;
+    border-color: #efc3c0;
+    color: #a12d28;
+}
+
+.mensagem-global.erro::before {
+    content: '×';
+
+    background: #b84e4e;
+    color: #ffffff;
+}
+
+/* AVISO */
+
+.mensagem-global.aviso {
+    background: #fff7df;
+    border-color: #ead79c;
+    color: #735d16;
+}
+
+.mensagem-global.aviso::before {
+    content: '!';
+
+    background: #9c7a18;
+    color: #ffffff;
+}
+
+/* BOTÃO FECHAR */
+
+.mensagem-fechar {
+    display: grid;
+    place-items: center;
+
+    flex: 0 0 26px;
+
+    width: 26px;
+    height: 26px;
+
+    padding: 0;
+
+    border: 0;
+    border-radius: 5px;
+
+    background: transparent;
+    color: currentColor;
+
+    font-size: 18px;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+.mensagem-fechar:hover {
+    background: rgb(0 0 0 / 7%);
+}
+
+/* ANIMAÇÕES */
+
+@keyframes mensagem-entrada {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mensagem-global.saindo {
+    opacity: 0;
+    transform: translateY(-10px);
+
+    transition:
+        opacity 0.2s,
+        transform 0.2s;
+}
+
 /* RODAPÉ */
 
 footer {
@@ -292,6 +446,15 @@ footer {
         padding: 20px 14px 36px;
     }
 
+    .container-mensagens {
+        top: 84px;
+        width: calc(100% - 28px);
+    }
+
+    .mensagem-global {
+        padding: 12px;
+        font-size: 12px;
+    }
     footer {
         flex-direction: column;
         gap: 8px;

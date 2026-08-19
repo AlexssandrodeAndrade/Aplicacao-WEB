@@ -7,20 +7,14 @@ if (token) {
 const form = document.querySelector('#form-login');
 const inputEmail = document.querySelector('#email');
 const inputSenha = document.querySelector('#senha');
-const mensagem = document.querySelector('#mensagem');
 
 const parametros = new URLSearchParams(window.location.search);
+
 const emailCadastro = parametros.get('email');
 
 if (emailCadastro) {
     inputEmail.value = emailCadastro;
     inputSenha.focus();
-}
-
-function mostrarMensagem(texto) {
-    mensagem.textContent = texto;
-    mensagem.hidden = false;
-    mensagem.className = 'mensagem erro';
 }
 
 form.addEventListener('submit', async (evento) => {
@@ -32,9 +26,11 @@ form.addEventListener('submit', async (evento) => {
     try {
         const resposta = await fetch('/login', {
             method: 'POST',
+
             headers: {
                 'Content-Type': 'application/json',
             },
+
             body: JSON.stringify({
                 email,
                 senha,
@@ -44,7 +40,7 @@ form.addEventListener('submit', async (evento) => {
         const dados = await resposta.json();
 
         if (!resposta.ok) {
-            mostrarMensagem(dados.mensagem || 'Não foi possível realizar o login.');
+            window.mostrarMensagem(dados.mensagem || 'Não foi possível realizar o login.', 'erro');
 
             return;
         }
@@ -59,6 +55,6 @@ form.addEventListener('submit', async (evento) => {
     } catch (erro) {
         console.error(erro);
 
-        mostrarMensagem('Erro ao conectar com o servidor.');
+        window.mostrarMensagem('Erro ao conectar com o servidor.', 'erro', 0);
     }
 });

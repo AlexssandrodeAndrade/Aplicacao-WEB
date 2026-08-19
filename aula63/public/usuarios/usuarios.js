@@ -1,7 +1,7 @@
 const form = document.querySelector('#form-usuario');
 const lista = document.querySelector('#lista-usuarios');
 const busca = document.querySelector('#busca');
-const mensagem = document.querySelector('#mensagem');
+
 const cancelar = document.querySelector('#cancelar');
 
 const inputId = document.querySelector('#usuario-id');
@@ -49,11 +49,6 @@ botaoSair.addEventListener('click', () => {
 
     window.location.replace('/login/login.html');
 });
-
-function mostrarMensagem(texto, erro = false) {
-    mensagem.textContent = texto;
-    mensagem.style.color = erro ? '#b84e4e' : '#1f8a70';
-}
 
 async function requisicao(url, opcoes = {}) {
     const token = localStorage.getItem('token');
@@ -196,7 +191,7 @@ async function carregarUsuarios() {
 
         renderizar();
     } catch (erro) {
-        mostrarMensagem(erro.message, true);
+        window.mostrarMensagem(erro.message, 'erro');
     }
 }
 
@@ -228,13 +223,13 @@ form.addEventListener('submit', async (evento) => {
             body: JSON.stringify(corpo),
         });
 
-        mostrarMensagem(dados.mensagem);
+        window.mostrarMensagem(dados.mensagem, 'sucesso');
 
         limparFormulario();
 
         await carregarUsuarios();
     } catch (erro) {
-        mostrarMensagem(erro.message, true);
+        window.mostrarMensagem(erro.message, 'erro');
     }
 });
 
@@ -293,7 +288,7 @@ confirmarExclusao.addEventListener('click', async () => {
             method: 'DELETE',
         });
 
-        mostrarMensagem(dados.mensagem);
+        window.mostrarMensagem(dados.mensagem, 'sucesso');
 
         usuarioParaExcluir = null;
 
@@ -301,7 +296,7 @@ confirmarExclusao.addEventListener('click', async () => {
 
         await carregarUsuarios();
     } catch (erro) {
-        mostrarMensagem(erro.message, true);
+        window.mostrarMensagem(erro.message, 'erro');
     }
 });
 

@@ -23,24 +23,6 @@
     margin-top: 4px;
 }
 
-.mensagem {
-    padding: 12px 14px;
-    border-radius: 6px;
-    font-size: 13px;
-}
-
-.mensagem.erro {
-    background: #fcebea;
-    border: 1px solid #efc3c0;
-    color: #a12d28;
-}
-
-.mensagem.sucesso {
-    background: #e8f5ef;
-    border: 1px solid #b8dfce;
-    color: #176344;
-}
-
 .cadastro-info {
     margin-top: 28px;
     padding-top: 22px;

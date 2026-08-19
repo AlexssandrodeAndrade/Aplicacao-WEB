@@ -8,13 +8,6 @@ const form = document.querySelector('#form-cadastro');
 const inputNome = document.querySelector('#nome');
 const inputEmail = document.querySelector('#email');
 const inputSenha = document.querySelector('#senha');
-const mensagem = document.querySelector('#mensagem');
-
-function mostrarMensagem(texto, tipo) {
-    mensagem.textContent = texto;
-    mensagem.hidden = false;
-    mensagem.className = `mensagem ${tipo}`;
-}
 
 form.addEventListener('submit', async (evento) => {
     evento.preventDefault();
@@ -26,9 +19,11 @@ form.addEventListener('submit', async (evento) => {
     try {
         const resposta = await fetch('/usuarios', {
             method: 'POST',
+
             headers: {
                 'Content-Type': 'application/json',
             },
+
             body: JSON.stringify({
                 nome,
                 email,
@@ -39,12 +34,15 @@ form.addEventListener('submit', async (evento) => {
         const dados = await resposta.json();
 
         if (!resposta.ok) {
-            mostrarMensagem(dados.mensagem || 'Não foi possível cadastrar o usuário.', 'erro');
+            window.mostrarMensagem(
+                dados.mensagem || 'Não foi possível cadastrar o usuário.',
+                'erro',
+            );
 
             return;
         }
 
-        mostrarMensagem(dados.mensagem || 'Usuário cadastrado com sucesso!', 'sucesso');
+        window.mostrarMensagem(dados.mensagem || 'Usuário cadastrado com sucesso!', 'sucesso');
 
         form.reset();
 
@@ -52,10 +50,10 @@ form.addEventListener('submit', async (evento) => {
             window.location.href = `/login/login.html?email=${encodeURIComponent(
                 email.toLowerCase(),
             )}`;
-        }, 800);
+        }, 1200);
     } catch (erro) {
         console.error(erro);
 
-        mostrarMensagem('Erro ao conectar com o servidor.', 'erro');
+        window.mostrarMensagem('Erro ao conectar com o servidor.', 'erro', 0);
     }
 });
