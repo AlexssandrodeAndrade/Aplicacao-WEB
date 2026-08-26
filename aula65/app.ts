@@ -1,64 +1,54 @@
-// STRING
-let nome: string = "João";
-let cidade: string = "Rio do Sul";
 
-// NUMBER
-let idade: number = 20;
-let preco: number = 99.90;
+import * as readline from "node:readline/promises";
+import { stdin as input, stdout as output } from "node:process";
 
-// BOOLEAN
-let ativo: boolean = true;
-let possuiEstoque: boolean = false;
+import { executarExercicio1 } from "./exercicio1/exercicio.js";
+import { executarExercicio2 } from "./exercicio2/usuario.js";
+import { executarExercicio3 } from "./exercicio3/pedido.js";
 
-let alunos: string[] = [
-   "João",
-   "Maria",
-   "Carlos",
-   "12365"
-];
+const terminal = readline.createInterface({
+    input,
+    output
+});
 
-let notas: number[] = [
-   7,
-   8,
-   10
-];
+async function main(): Promise<void> {
+    console.log("================================");
+    console.log("        AULA 65 - TYPESCRIPT");
+    console.log("================================");
+    console.log("1 - Exercício 1");
+    console.log("2 - Exercício 2");
+    console.log("3 - Exercício 3");
+    console.log("0 - Sair");
+    console.log("================================");
 
-function calcularTotal(preco: number, quantidade: number): number {
-   return preco * quantidade;
+    const opcao: string = await terminal.question(
+        "Escolha um exercício: "
+    );
+
+    console.log();
+
+    switch (opcao) {
+        case "1":
+            executarExercicio1();
+            break;
+
+        case "2":
+            executarExercicio2();
+            break;
+
+        case "3":
+            executarExercicio3();
+            break;
+
+        case "0":
+            console.log("Programa encerrado.");
+            break;
+
+        default:
+            console.log("Opção inválida.");
+    }
+
+    terminal.close();
 }
 
-function exibirMensagem(mensagem: string): void {
-   console.log(mensagem);
-}
-
-function cadastrarUsuario(nome: string, idade?: number): void {
-   console.log(nome);
-   if(idade){
-        console.log(idade);
-   }
-   
-}
-
-
-/////////////////////////
-console.log(nome);
-console.log(cidade);
-
-console.log(idade);
-console.log(preco);
-
-console.log(ativo);
-console.log(possuiEstoque);
-
-console.log(alunos);
-console.log(notas);
-
-console.log(calcularTotal(5, 20));
-
-exibirMensagem("Hello World!!");
-
-// PODEMOS CHAMAR:
-cadastrarUsuario("João");
-
-// OU:
-cadastrarUsuario("Maria", 25);
+main();
